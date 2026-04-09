@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5ta Esencia | Contáctenos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+
+  <!-- HEADER - Vero -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <img src="img/Logo.png" alt="La 5ta Esencia" class="logo">
+        5ta Esencia
+      </a>
+      <nav class="nav">
+        <a href="#">Nosotros</a>
+        <a href="index.html" class="active">Contacto</a>
+      </nav>
+    </div>
+  </header>
+  <!-- FIN HEADER - Vero -->
+
+  <main>
+
+    <!-- HERO - Fer -->
+    <section class="hero">
+      <div class="hero-overlay">
+        <h1 class="hero-title">HABLEMOS DE SABORES</h1>
+        <p class="hero-subtitle">Queremos escucharte</p>
+      </div>
+    </section>
+    <!-- FIN HERO - Fer -->
+
+    <!-- INTRO CONTACTO - Brenda -->
+    <section class="contacto-intro">
+      <div class="container">
+        <h2 class="section-title">¿Tienes alguna pregunta?</h2>
+        <p class="contacto-desc">
+          Ya sea que quieras personalizar tu tabla de quesos, hacer un pedido
+          especial o simplemente saber más sobre nosotros, escríbenos y con
+          gusto te responderemos.
+        </p>
+      </div>
+    </section>
+    <!-- FIN INTRO CONTACTO - Brenda -->
+
+    <!-- FORMULARIO + INFO - Chris -->
+    <section class="contacto-main">
+      <div class="container">
+        <div class="contacto-grid">
+
+          <!-- Formulario - Chris -->
+          <form id="contactForm" class="contacto-form" action="https://formspree.io/f/mykblqqv" method="POST" novalidate>
+
+            <!-- Campo Nombre - Alex -->
+            <div class="form-group">
+              <label for="nombre">Nombre <span class="required">*</span></label>
+              <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" autocomplete="name">
+              <span class="error-msg" id="error-nombre"></span>
+            </div>
+            <!-- FIN Campo Nombre - Alex -->
+
+            <!-- Campo Correo - Daniel -->
+            <div class="form-group">
+              <label for="email">Correo electrónico <span class="required">*</span></label>
+              <input type="email" id="email" name="email" placeholder="tu@correo.com" autocomplete="email">
+              <span class="error-msg" id="error-email"></span>
+            </div>
+            <!-- FIN Campo Correo - Daniel -->
+
+            <!-- Campo Telefono - Eduardo -->
+            <div class="form-group">
+              <label for="telefono">Teléfono <span class="required">*</span></label>
+              <input type="tel" id="telefono" name="telefono" placeholder="(555) 123 4567" autocomplete="tel">
+              <span class="error-msg" id="error-telefono"></span>
+            </div>
+            <!-- FIN Campo Telefono - Eduardo -->
+
+            <!-- Campo Mensaje - Angel -->
+            <div class="form-group">
+              <label for="mensaje">Mensaje <span class="required">*</span></label>
+              <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..."></textarea>
+              <span class="error-msg" id="error-mensaje"></span>
+            </div>
+            <!-- FIN Campo Mensaje - Angel -->
+
+            <!-- Boton Submit - Victor -->
+            <button type="submit" class="btn-submit" id="btnSubmit">Enviar mensaje</button>
+            <p class="form-status" id="formStatus"></p>
+            <!-- FIN Boton Submit - Victor -->
+
+          </form>
+          <!-- FIN Formulario - Chris -->
+
+          <!-- Info de Contacto - Vianey -->
+          <div class="contacto-info">
+            <h3>Información de contacto</h3>
+
+            <div class="info-item">
+              <span class="info-icon">&#9993;</span>
+              <div>
+                <strong>Correo</strong>
+                <p>5taesencia@vinoyquesito.com</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <span class="info-icon">&#9742;</span>
+              <div>
+                <strong>Teléfono</strong>
+                <p>(555) 123 4567</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <span class="info-icon">&#9872;</span>
+              <div>
+                <strong>Ubicación</strong>
+                <p>Ciudad de México, México</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <span class="info-icon">&#9200;</span>
+              <div>
+                <strong>Horario</strong>
+                <p>Lunes a Viernes: 9:00 - 18:00</p>
+                <p>Sábado: 10:00 - 14:00</p>
+              </div>
+            </div>
+          </div>
+          <!-- FIN Info de Contacto - Vianey -->
+
+        </div>
+      </div>
+    </section>
+    <!-- FIN FORMULARIO + INFO - Chris -->
+
+  </main>
+
+  <!-- FOOTER - Vero -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-brand">5ta Esencia</p>
+      <p class="footer-contact">5taesencia@vinoyquesito.com | (555) 123 4567</p>
+      <p class="footer-copy">&copy; 2026 Java Force & Los Scripts</p>
+    </div>
+  </footer>
+  <!-- FIN FOOTER - Vero -->
+
+  <script src="Script.js"></script>
+
+</body>
+</html>
