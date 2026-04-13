@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-  <main>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>5ta Esencia | Productos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,42 +9,129 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="Style.css">
 </head>
-
 <body>
-     <header class="header">
+
+  <!-- HEADER -->
+  <header class="header">
     <div class="header-inner">
-      <a href="index.html" class="brand">
+      <a href="Index.html" class="brand">
         <img src="img/Logo.png" alt="La 5ta Esencia" class="logo">
         5ta Esencia
       </a>
       <nav class="nav">
         <a href="Index.html">Inicio</a>
         <a href="productos.html" class="active">Productos</a>
-        <a href="nosotros.html" class="active">Sobre nosotros</a>
-        <a href="contactanos.html" class="active">Contacto</a>
-        <a href=" " class="active">Iniciar Sesion</a>
+        <a href="nosotros.html">Sobre nosotros</a>
+        <a href="contactanos.html">Contacto</a>
+        <a href="login.html">Iniciar Sesion</a>
       </nav>
     </div>
   </header>
+  <!-- FIN HEADER -->
+
+  <main>
+
+    <!-- HERO PRODUCTOS - Chris -->
+    <section class="hero hero-productos">
+      <div class="hero-overlay">
+        <h1 class="hero-title">NUESTRA SELECCION</h1>
+        <p class="hero-subtitle">Vinos y quesos de la Reserva Clasica</p>
+      </div>
+    </section>
+    <!-- FIN HERO PRODUCTOS - Chris -->
+
+    <!-- INTRO PRODUCTOS - Chris -->
+    <section class="productos-intro">
+      <div class="container">
+        <h2 class="section-title">Maridajes que cuentan historias</h2>
+        <p class="productos-desc">
+          Cada botella y cada tabla es una invitacion a desacelerar.
+          Descubre nuestra seleccion cuidadosamente curada de vinos
+          y quesos artesanales.
+        </p>
+      </div>
+    </section>
+    <!-- FIN INTRO PRODUCTOS - Chris -->
+
+    <!-- GRID PRODUCTOS - Chris -->
+    <section class="productos-main">
+      <div class="container">
+
+        <h3 class="productos-categoria">Vinos</h3>
+        <div class="productos-grid">
+          <article class="producto-card">
+            <div class="producto-img">&#127863;</div>
+            <h4 class="producto-nombre">Cabernet Reserva</h4>
+            <p class="producto-desc">Cuerpo intenso, notas de cereza y roble.</p>
+            <p class="producto-precio">$650 MXN</p>
+          </article>
+          <article class="producto-card">
+            <div class="producto-img">&#127863;</div>
+            <h4 class="producto-nombre">Malbec Gran Seleccion</h4>
+            <p class="producto-desc">Aterciopelado con toques de ciruela madura.</p>
+            <p class="producto-precio">$720 MXN</p>
+          </article>
+          <article class="producto-card">
+            <div class="producto-img">&#129346;</div>
+            <h4 class="producto-nombre">Chardonnay</h4>
+            <p class="producto-desc">Fresco y floral, fermentado en barrica.</p>
+            <p class="producto-precio">$580 MXN</p>
+          </article>
+          <article class="producto-card">
+            <div class="producto-img">&#127870;</div>
+            <h4 class="producto-nombre">Rosado Brut</h4>
+            <p class="producto-desc">Burbujas finas con fresa y citricos.</p>
+            <p class="producto-precio">$690 MXN</p>
+          </article>
+        </div>
+
+        <h3 class="productos-categoria">Quesos</h3>
+        <div class="productos-grid">
+          <article class="producto-card">
+            <div class="producto-img">&#129472;</div>
+            <h4 class="producto-nombre">Manchego Curado</h4>
+            <p class="producto-desc">Doce meses de maduracion, sabor intenso.</p>
+            <p class="producto-precio">$280 MXN / 200g</p>
+          </article>
+          <article class="producto-card">
+            <div class="producto-img">&#129472;</div>
+            <h4 class="producto-nombre">Brie Artesanal</h4>
+            <p class="producto-desc">Cremoso, corteza aterciopelada.</p>
+            <p class="producto-precio">$260 MXN / 200g</p>
+          </article>
+          <article class="producto-card">
+            <div class="producto-img">&#129472;</div>
+            <h4 class="producto-nombre">Roquefort</h4>
+            <p class="producto-desc">Hongo azul, potente y caracteristico.</p>
+            <p class="producto-precio">$340 MXN / 200g</p>
+          </article>
+          <article class="producto-card">
+            <div class="producto-img">&#129472;</div>
+            <h4 class="producto-nombre">Gouda Ahumado</h4>
+            <p class="producto-desc">Humo de haya, textura firme y suave.</p>
+            <p class="producto-precio">$240 MXN / 200g</p>
+          </article>
+        </div>
+
+      </div>
+    </section>
+    <!-- FIN GRID PRODUCTOS - Chris -->
+
   </main>
 
-
-
-
-
-
-<footer class="footer">
-  <div class="footer-inner">
-    <p class="footer-brand">5ta Esencia</p>
-    <p class="footer-contact">
-      <a href="mailto:5taesencia@vinoyquesito.com">5taesencia@vinoyquesito.com</a> | 
-      <a href="tel:5551234567">(555) 123 4567</a>
-    </p>
-    <p class="footer-copy">&copy; 2026 Java Force & Los Scripts</p>
-  </div>
-</footer>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-brand">5ta Esencia</p>
+      <p class="footer-contact">
+        <a href="mailto:5taesencia@vinoyquesito.com">5taesencia@vinoyquesito.com</a> |
+        <a href="tel:5551234567">(555) 123 4567</a>
+      </p>
+      <p class="footer-copy">&copy; 2026 Java Force &amp; Los Scripts</p>
+    </div>
+  </footer>
+  <!-- FIN FOOTER -->
 
   <script src="Script.js"></script>
-
 </body>
 </html>
