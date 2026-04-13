@@ -2,7 +2,7 @@
 
 ### Paso 1: Clonar el repo
 ```bash
-git clone https://github.com/VeronicaOrtCastillo/Pagina-Sobre-Nosotros.git
+git clone https://github.com/VeronicaOrtCastillo/5ta-Esencia.git
 cd Pagina-Sobre-Nosotros
 ```
 
