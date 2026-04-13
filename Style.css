@@ -1659,3 +1659,59 @@ main {
   text-align: center;
   padding: 1rem;
 }
+
+/* --- Botón hamburguesa --- */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: var(--crema);
+  cursor: pointer;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+
+  .menu-toggle {
+    display: block;
+  }
+  .nav {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: var(--burdeos);
+    flex-direction: column;
+    align-items: center;
+    display: none;
+  }
+
+  .nav a {
+    position: relative;
+    color: var(--crema);
+    margin-left: 15px;
+    padding-bottom: 4px;
+  }
+  nav a::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: var(--dorado);
+    transition: width 0.3s ease;
+  }
+  .nav a:hover::after {
+    width: 100%;
+  }
+
+  .nav a:hover {
+    color: var(--dorado);
+  }
+
+  .nav.active {
+    display: flex;
+  }
+}
