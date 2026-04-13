@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5ta Esencia | Iniciar Sesion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="Index.html" class="brand">
+        <img src="img/Logo.png" alt="La 5ta Esencia" class="logo">
+        5ta Esencia
+      </a>
+      <nav class="nav">
+        <a href="Index.html">Inicio</a>
+        <a href="productos.html">Productos</a>
+        <a href="nosotros.html">Sobre nosotros</a>
+        <a href="contactanos.html">Contacto</a>
+        <a href="login.html" class="active">Iniciar Sesion</a>
+      </nav>
+    </div>
+  </header>
+  <!-- FIN HEADER -->
+
+  <main>
+
+    <!-- HERO LOGIN - Chris -->
+    <section class="hero hero-login">
+      <div class="hero-overlay">
+        <h1 class="hero-title">BIENVENIDO DE VUELTA</h1>
+        <p class="hero-subtitle">Accede a tu cuenta de Reserva Clasica</p>
+      </div>
+    </section>
+    <!-- FIN HERO LOGIN - Chris -->
+
+    <!-- LOGIN FORM - Chris -->
+    <section class="login-main">
+      <div class="container login-container">
+        <div class="login-card">
+          <h2 class="section-title">Iniciar Sesion</h2>
+          <form id="loginForm" class="contacto-form" novalidate>
+
+            <div class="form-group">
+              <label for="login-email">Correo electronico <span class="required">*</span></label>
+              <input type="email" id="login-email" name="email" placeholder="tu@correo.com" autocomplete="email">
+              <span class="error-msg" id="error-login-email"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="login-password">Contrasena <span class="required">*</span></label>
+              <input type="password" id="login-password" name="password" placeholder="........" autocomplete="current-password">
+              <span class="error-msg" id="error-login-password"></span>
+            </div>
+
+            <div class="login-options">
+              <label class="remember">
+                <input type="checkbox" id="remember" name="remember">
+                Recordarme
+              </label>
+              <a href="#" class="forgot">&iquest;Olvidaste tu contrasena?</a>
+            </div>
+
+            <button type="submit" class="btn-submit" id="btnLogin">Entrar</button>
+            <p class="form-status" id="loginStatus"></p>
+
+            <p class="login-register">
+              &iquest;No tienes cuenta? <a href="#">Registrate aqui</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+    <!-- FIN LOGIN FORM - Chris -->
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-brand">5ta Esencia</p>
+      <p class="footer-contact">
+        <a href="mailto:5taesencia@vinoyquesito.com">5taesencia@vinoyquesito.com</a> |
+        <a href="tel:5551234567">(555) 123 4567</a>
+      </p>
+      <p class="footer-copy">&copy; 2026 Java Force &amp; Los Scripts</p>
+    </div>
+  </footer>
+  <!-- FIN FOOTER -->
+
+  <script src="Script.js"></script>
+</body>
+</html>
