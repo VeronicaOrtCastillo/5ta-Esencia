@@ -40,7 +40,7 @@ h1, h2, h3, h4 {
 
 a {
   text-decoration: none;
-  color: inherit;
+  color: white;
 }
 
 img { max-width: 100%; display: block; }
@@ -57,7 +57,7 @@ img { max-width: 100%; display: block; }
   position: fixed;
   top: 0;
   width: 100%;
-  background: var(--burdeos);
+  background: var(--dorado);
   z-index: 100;
   padding: 12px 0;
 }
@@ -88,15 +88,34 @@ img { max-width: 100%; display: block; }
 
 /* --- Navegacion --- */
 .nav a {
+  position: relative;
   color: var(--crema);
-  margin-left: 20px;
-  font-size: 0.9rem;
-  transition: color 0.3s;
+  margin-left: 25px;
+  text-decoration: none;
+  padding-bottom: 4px;
+}
+
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--burdeos); /* puedes usar dorado también */
+  transition: width 0.3s ease;
+}
+
+.nav a:hover::after {
+  width: 100%;
+  background: var(--burdeos);
 }
 
 .nav a:hover,
 .nav a.active {
-  color: var(--dorado);
+  color: var(--burdeos);
+  font-weight: 600;
+
 }
 
 /* --- Hero con overlay oscuro --- */
