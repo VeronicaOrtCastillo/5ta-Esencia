@@ -68,7 +68,7 @@ Ve a GitHub > Pull requests > "New Pull Request" > base: main - compare: TU-NOMB
 Cada integrante trabaja en su propia rama:
 
 ```
-feature/quienes-somos-nombre
+Nombre-feature
 ```
 
 | Integrante | Ramas                         |
