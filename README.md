@@ -3,7 +3,7 @@
 ### Paso 1: Clonar el repo
 ```bash
 git clone https://github.com/VeronicaOrtCastillo/5ta-Esencia.git
-cd Pagina-Sobre-Nosotros
+cd 5ta-Esencia
 ```
 
 ### Paso 2: Crear tu rama
