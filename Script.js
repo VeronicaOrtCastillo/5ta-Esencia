@@ -15,6 +15,8 @@
 
 document.addEventListener('DOMContentLoaded', function () {
   var form = document.getElementById('contactForm');
+  if (!form) return;
+
   var btnSubmit = document.getElementById('btnSubmit');
   var formStatus = document.getElementById('formStatus');
 
