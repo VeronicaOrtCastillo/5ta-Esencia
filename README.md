@@ -68,20 +68,20 @@ Ve a GitHub > Pull requests > "New Pull Request" > base: main - compare: TU-NOMB
 Cada integrante trabaja en su propia rama:
 
 ```
-feature/quienes-somos-nombre
+Nombre-feature
 ```
 
 | Integrante | Ramas                         |
 |------------|-------------------------------|
-| Alex       | `feature/quienes-somos-alex`  |
-| Brenda     | `Brenda`                      |
-| Chris      | `feature/quienes-somos-chris` |
-| Vianey     | `eyvian_feature`              |
+| Alex       | `alex-feature`  |
+| Brenda     | `Brenda-feature`                      |
+| Chris      | `Chris-feature` |
+| Vianey     | `vianey_feature`              |
 | Angel      | `Angel-feature`               |
 | Daniel     | `Daniel-feature`              |
 | Fer        | `FerAO-feature`               |
-| Eduardo    |`feature/quienes-somos-eduardo`|
-| Vero       | `vero/feature`                |
-| Victor     | `victor-feature`              |
+| Eduardo    | `eduardo-feature`|
+| Vero       | `Vero/feature`                |
+| Victor     | `Victor-feature`              |
 
 ---
