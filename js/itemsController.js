@@ -9,7 +9,7 @@ const productos = [
         precio: 1200,
         stock: 10,
         descripcion: "2 quesos maduros: queso Philadelphia con nuez, queso manchego Semi-Curado\n2 carnes frías: jamón serrano, salami seco estilo italiano\nFrutas de temporada\nGalletas integrales\nMermelada de higos\nAlmendras y pretzel de chocolate ",
-        imagen: "5ta-Esencia\img\Productos\Tabla picnic.jpeg"
+        imagen: "img/Productos/Tabla picnic.jpeg"
     },
     {
         id: 2,
