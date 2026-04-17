@@ -1,7 +1,7 @@
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 const productos = [
-  { id: 1, nombre: "----", precio: 00.00, imagen: "--/--.--" },
+  { id: 1, nombre: "Tabla Picnic", precio: 1200.00, imagen: "img/tabla-picnic.jpg" },
   { id: 2, nombre: "----", precio: 00.00, imagen: "--/--.--" },
   { id: 3, nombre: "----", precio: 00.00, imagen: "--/--.--" },
   { id: 4, nombre: "----", precio: 00.00, imagen: "--/--.--" },
