@@ -1,23 +1,35 @@
 /* SCRIPT GENERAL - 5ta Esencia */
 
+/* SCRIPT GENERAL - 5ta Esencia */
+
 document.addEventListener('DOMContentLoaded', function () {
 
-  // --- 1. LÓGICA DE PRODUCTOS (NUEVO) ---
+  // --- 1. LÓGICA DE PRODUCTOS ---
   const contenedor = document.getElementById('contenedor-productos');
+  
+  // Traemos los datos desde el LocalStorage
   const productosLocal = JSON.parse(localStorage.getItem("productos"));
 
-  // Solo se ejecuta si estamos en la página que tiene el contenedor de productos
   if (contenedor && productosLocal) {
-    contenedor.innerHTML = ""; // Limpiar contenedor
+    contenedor.innerHTML = ""; // Limpiar el contenedor antes de llenar
 
     productosLocal.forEach(item => {
       const card = document.createElement('article');
       card.classList.add('producto-card');
 
+      /** * VALIDACIÓN DE IMAGEN:
+       * Si la propiedad imagen contiene "img/" o "http", creamos una etiqueta <img>.
+       * Si no, asumimos que es un emoji o texto y lo ponemos directo.
+       */
+      const esRutaImagen = item.imagen.includes('img/') || item.imagen.includes('http');
+      const contenidoImagen = esRutaImagen 
+        ? `<img src="${item.imagen}" alt="${item.nombre}" style="width:100%; height:auto; border-radius:8px;">` 
+        : item.imagen;
+
       card.innerHTML = `
-        <div class="producto-img">${item.imagen}</div>
+        <div class="producto-img">${contenidoImagen}</div>
         <h4 class="producto-nombre">${item.nombre}</h4>
-        ${item.categoria ? `<p class="producto-categoria-tag">${item.categoria}</p>` : ''}
+        ${item.categoria ? `<p class="producto-categoria-tag" style="font-size:0.8rem; color:gray;">${item.categoria}</p>` : ''}
         <p class="producto-desc">${item.descripcion}</p>
         <p class="producto-precio">$${item.precio.toLocaleString()} MXN</p>
         <button class="btn-comprar" onclick="agregarAlCarrito(${item.id})">
@@ -38,8 +50,10 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
 
       clearErrors();
-      formStatus.textContent = '';
-      formStatus.className = 'form-status';
+      if(formStatus) {
+        formStatus.textContent = '';
+        formStatus.className = 'form-status';
+      }
 
       var nombre = document.getElementById('nombre').value.trim();
       var email = document.getElementById('email').value.trim();
@@ -99,11 +113,11 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /**
- * FUNCIÓN AGREGAR AL CARRITO (Para uso futuro)
+ * FUNCIÓN GLOBAL PARA EL CARRITO
  */
 function agregarAlCarrito(id) {
-    console.log("Producto con ID " + id + " agregado al carrito.");
-    // Aquí podrías añadir lógica para guardar en otro LocalStorage llamado "carrito"
+    console.log("Producto con ID " + id + " añadido.");
+    alert("¡Producto añadido al carrito!");
 }
 
 /* ================= VALIDACIONES ================= */
@@ -150,7 +164,7 @@ function validateMensaje(value) {
   return true;
 }
 
-/* ================= ERRORES ================= */
+/* ================= MANEJO DE ERRORES ================= */
 
 function showError(inputEl, errorEl, message) {
   if (inputEl) inputEl.classList.add('input-error');
