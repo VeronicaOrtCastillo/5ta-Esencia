@@ -4,12 +4,12 @@
 const productos = [
     {
         id: 1,
-        nombre: "Vino Tinto",
-        categoria: "Vinos",
-        precio: 650,
+        nombre: "Tabla picnic",
+        categoria: "Tablas",
+        precio: 1200,
         stock: 10,
-        descripcion: "Casa Madero 3V: Mezcla de Cabernet Sauvignon, Merlot y Tempranillo.",
-        imagen: "🍷"
+        descripcion: "2 quesos maduros: queso Philadelphia con nuez, queso manchego Semi-Curado\n2 carnes frías: jamón serrano, salami seco estilo italiano\nFrutas de temporada\nGalletas integrales\nMermelada de higos\nAlmendras y pretzel de chocolate ",
+        imagen: "5ta-Esencia\img\Productos\Tabla picnic.jpeg"
     },
     {
         id: 2,
