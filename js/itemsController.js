@@ -4,11 +4,17 @@
 const productos = [
     {
         id: 1,
-        nombre: "Tabla picnic",
+        nombre: "Tabla Picnic",
         categoria: "Tablas",
         precio: 1200,
         stock: 10,
-        descripcion: "2 quesos maduros: queso Philadelphia con nuez, queso manchego Semi-Curado\n2 carnes frías: jamón serrano, salami seco estilo italiano\nFrutas de temporada\nGalletas integrales\nMermelada de higos\nAlmendras y pretzel de chocolate ",
+        descripcion: `Incluye:
+        •2 quesos maduros: queso Philadelphia con nuez, queso manchego Semi-Curado
+        •2 carnes frías: jamón serrano, salami seco estilo italiano
+        •Frutas de temporada
+        •Galletas integrales
+        •Mermelada de higos
+        •Almendras y pretzel de chocolate`,
         imagen: "img/Productos/Tabla picnic.jpeg"
     },
     {
@@ -28,12 +34,21 @@ const productos = [
     },
     {
         id: 3,
-        nombre: "Vino Rosado",
-        categoria: "Vinos",
-        precio: 690,
+        nombre: "Individual Grazing Box",
+        categoria: "1 persona",
+        precio: 190,
         stock: 8,
-        descripcion: "L.A. Cetto Rosado: Refrescante con notas de fresa y frambuesa.",
-        imagen: "🌸"
+        descripcion: `Incluye:
+        • Queso Philadelphia con nuez 
+        • Queso manchego 
+        • Chorizo español 
+        • Jamón serrano 
+        • Uvas 
+        • Dátil
+        • Almendras 
+        • Galletas integrales y pretzel de chocolate 
+        `,
+        imagen: "img/Productos/Individual Grazing Box.jpeg"
     },
     {
         id: 4,
