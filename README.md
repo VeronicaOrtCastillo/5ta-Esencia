@@ -32,16 +32,37 @@ Ve a GitHub > Pull requests > "New Pull Request" > base: main - compare: TU-NOMB
 
 **NUNCA hagas push directo a main.**
 
+### Paso 7: Traer actualizaciones de GitHub a Visual Code
+```bash
+git checkout main
+git pull origin main
+git checkout TU-NOMBRE-feature
+git merge main
+```
 ---
 ## 2. Estructura del proyecto
 
 ```
 5ta-Esencia
 ├── img/
-│   ├── Logo.png       <- Logo de la marca
-│   ├── telefono.png   <- Imagen hero de fondo
-│   ├── fondoquienessomos.jpg        <- Imagen hero de fondo
-│   └── team/           <- Fotos individuales del equipo
+│   ├── Logo.png                     <- Logo de la marca
+│   ├── telefono.png                 <- Imagen hero de fondo (pagina contactanos)
+│   ├── fondoquienessomos.jpg        <- Imagen hero de fondo (pagina nosotros)
+│   ├── carrito.png                  <- Imagen carrito de compras (barra de navegacion)
+│   │
+│   ├── Productos/                   <-Imganes de productos
+│   │   ├── 1. Rioja Reserva (vino tinto).PNG
+│   │   ├── 2. Ribera del Duero (vino tinto).PNG
+│   │   ├── 3. Chianti Classico (vino tinto).PNG
+│   │   ├── 4. Albariño (vino blanco).PNG
+│   │   ├── 5. Sweet Red (vino dulce).PNG
+│   │   ├── For every ocassion (botella de vino con cajita colgante).png
+│   │   ├── Individual Grazing Box.jpeg
+│   │   ├── Kit pareja.jpeg
+│   │   ├── Tabla basica.png
+│   │   └── Tabla picnic.jpeg
+│   │
+│   └── team/                        <- Fotos individuales del equipo
 │       ├── alex.jpg
 │       ├── brenda.jpg
 │       ├── chris.jpg
@@ -52,14 +73,19 @@ Ve a GitHub > Pull requests > "New Pull Request" > base: main - compare: TU-NOMB
 │       ├── eduardo.jpg
 │       ├── vero.jpg
 │       └── victor.jpg
-├── index.html          <- Pagina principal
-├── contactanos.html          <- Pagina de contacto
-├── login.html          <- Pagina de login
-├── nosotros.html          <- Pagina nosotros
-├── productos.html          <- Pagina productos
-├── Script.js          <- Archivo de javascript
-├── Style.css          <- Archivo de css
-└── README.md    <- Este archivo
+│   
+├── js/
+│   ├── index.js                     <- Index principal de javascript
+│   └── itemsController              <- Js para pagina productos
+│   
+├── index.html                       <- Pagina principal
+├── contactanos.html                 <- Pagina de contacto
+├── login.html                       <- Pagina de login
+├── nosotros.html                    <- Pagina nosotros
+├── productos.html                   <- Pagina productos
+├── carrito.html                     <- Pagina productos
+├── style.css                        <- Archivo de css
+└── README.md                        <- Este archivo
 
 ```
 ---
