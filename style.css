@@ -732,6 +732,9 @@ main {
   color: var(--gris);
   margin-bottom: 12px;
   min-height: 40px;
+  white-space: pre-line;
+  text-align: left;
+
 }
 
 .producto-precio {

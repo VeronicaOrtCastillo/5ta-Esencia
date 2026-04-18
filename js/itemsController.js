@@ -13,12 +13,18 @@ const productos = [
     },
     {
         id: 2,
-        nombre: "Vino Blanco",
-        categoria: "Vinos",
-        precio: 580,
+        nombre: "Kit Pareja",
+        categoria: "Kits",
+        precio: 990,
         stock: 12,
-        descripcion: "Monte Xanic Chardonnay: Notas de manzana verde, piña y toques florales.",
-        imagen: "🥂"
+        descripcion: `Incluye:
+        • 2 Carnes frías: Jamón serrano, Pepperoni
+        • 2 Quesos: Queso manchego, Queso Philadelphia con nuez
+        • Frutas de temporada: Dátiles, Almendras, Pretzel de chocolate
+        • Galletas integrales
+        • Botella de vino
+        • 2 Copas de vidrio`,
+        imagen: "img/Productos/Kit Pareja.jpeg"
     },
     {
         id: 3,
@@ -45,7 +51,7 @@ const productos = [
         precio: 990,
         stock: 15,
         descripcion: "Experiencia romántica: Incluye botella de vino, quesos y 2 copas de vidrio.",
-        imagen: "❤️"
+        imagen: " "
     },
     {
         id: 6,
