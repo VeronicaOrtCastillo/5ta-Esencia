@@ -83,7 +83,7 @@ git merge main
 ├── login.html                       <- Pagina de login
 ├── nosotros.html                    <- Pagina nosotros
 ├── productos.html                   <- Pagina productos
-├── carrito.html                     <- Pagina productos
+├── carrito.html                     <- Pagina carrito
 ├── style.css                        <- Archivo de css
 └── README.md                        <- Este archivo
 
