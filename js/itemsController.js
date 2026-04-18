@@ -119,10 +119,10 @@ const productos = [
         id: 10,
         nombre: "Pan de Masa Madre",
         categoria: "Complementos",
-        precio: 95,
+        precio: 189,
         stock: 30,
-        descripcion: "Hogaza artesanal de masa madre, corteza crujiente y miga suave.",
-        imagen: "🥖"
+        descripcion: "Vino tinto dulce con perfil afrutado y equilibrado, destacan notas de frutos rojos maduros y un ligero toque floral. Su suavidad lo hace perfecto para maridar con postres o disfrutarlo ligeramente frío.",
+        imagen: "img/Productos/5. Sweet Red (vino dulce).PNG"   
     }
 ];
 
