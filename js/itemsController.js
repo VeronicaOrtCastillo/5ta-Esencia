@@ -52,21 +52,32 @@ const productos = [
     },
     {
         id: 4,
-        nombre: "Tabla Picnic",
+        nombre: "For every ocassion",
         categoria: "Tablas",
-        precio: 1200,
+        precio: 450,
         stock: 5,
-        descripcion: "Ideal para 4-6 personas. Incluye quesos maduros, carnes frías y frutos secos.",
-        imagen: "🧺"
+        descripcion: `Ideal para darle ese detalle a tu persona favorita en cualquier ocasión.
+        Incluye:
+        • Botella de vino tinto
+        • Caja colgante con porción pequeña de queso manchego, jamón serrano, fruta)`,
+
+        imagen: "img/Productos/For every ocassion (botella de vino con cajita colgante).png"
     },
     {
         id: 5,
-        nombre: "Kit Pareja",
+        nombre: "Tabla básica",
         categoria: "Tablas",
-        precio: 990,
+        precio: 350,
         stock: 15,
-        descripcion: "Experiencia romántica: Incluye botella de vino, quesos y 2 copas de vidrio.",
-        imagen: " "
+        descripcion: `Ideal para una tarde de pelis con los amigos."
+        Incluye: 
+         • Queso manchego
+        • Jamón serrano 
+        • Fruta de temporada
+        • Aceitunas
+        • Galletas integrales
+        • Mermelada de higos.`,
+        imagen: "img/Productos/Tabla basica.png"
     },
     {
         id: 6,
