@@ -69,8 +69,14 @@ const productos = [
         categoria: "Tablas",
         precio: 350,
         stock: 15,
-        descripcion: "Ideal para una tarde de pelis con los amigos."
-        + "\nIncluye: Queso manchego, 2 carnes frías, frutas de temporada, aceitunas,  galletas integrales y mermelada de higos.",
+        descripcion: `Ideal para una tarde de pelis con los amigos."
+        Incluye: 
+         • Queso manchego
+        • Jamón serrano 
+        • Fruta de temporada
+        • Aceitunas
+        • Galletas integrales
+        • Mermelada de higos.`,
         imagen: "img/Productos/Tabla basica.png"
     },
     {
