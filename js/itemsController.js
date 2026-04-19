@@ -117,7 +117,7 @@ const productos = [
     },
     {
         id: 10,
-        nombre: "Pan de Masa Madre",
+        nombre: "Vino tinto",
         categoria: "Complementos",
         precio: 189,
         stock: 30,
