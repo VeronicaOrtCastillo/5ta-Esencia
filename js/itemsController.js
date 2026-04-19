@@ -86,7 +86,7 @@ const productos = [
         precio: 190,
         stock: 20,
         descripcion: "Snack premium personal con jamón serrano, uvas, dátil y quesos.",
-        imagen: "🧀"
+        imagen: "img/Productos/1.Rioja Reserva (vino tinto).PNG"
     },
     {
         id: 7,
@@ -95,7 +95,7 @@ const productos = [
         precio: 350,
         stock: 10,
         descripcion: "Queso artesanal de oveja con 6 meses de maduración.",
-        imagen: "🔪"
+        imagen: "img/Productos/2. Ribera del Duero (vino tinto).PNG"
     },
     {
         id: 8,
@@ -104,20 +104,20 @@ const productos = [
         precio: 420,
         stock: 7,
         descripcion: "Sobre de 100g de jamón serrano reserva de corte fino.",
-        imagen: "🍖"
+        imagen: "img/Productos/3. Chianti Classico (vino tinto).PNG"
     },
     {
         id: 9,
-        nombre: "Mermelada de Higo",
+        nombre: "Albariño",
         categoria: "Complementos",
         precio: 145,
         stock: 25,
-        descripcion: "Mermelada artesanal perfecta para maridar con quesos fuertes.",
-        imagen: "🍯"
+        descripcion: "vino blanco",
+        imagen: "img/Productos/4. Albariño (vino blanco).PNG"
     },
     {
         id: 10,
-        nombre: "Vino tinto",
+        nombre: "Sweet Red",
         categoria: "Complementos",
         precio: 189,
         stock: 30,
