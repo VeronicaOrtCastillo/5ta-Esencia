@@ -81,38 +81,38 @@ const productos = [
     },
     {
         id: 6,
-        nombre: "Individual Grazing Box",
-        categoria: "Tablas",
+        nombre: "Rioja Reserva",
+        categoria: "Vinos",
         precio: 190,
         stock: 20,
-        descripcion: "Snack premium personal con jamón serrano, uvas, dátil y quesos.",
+        descripcion: "Vino tinto español con crianza en barrica, notas de frutos rojos, vainilla y especias. Ideal para carnes rojas y quesos curados.",
         imagen: "img/Productos/1.Rioja Reserva (vino tinto).PNG"
     },
     {
         id: 7,
-        nombre: "Queso Manchego Curado",
-        categoria: "Quesos",
+        nombre: "Ribera del Duero",
+        categoria: "Vinos",
         precio: 350,
         stock: 10,
-        descripcion: "Queso artesanal de oveja con 6 meses de maduración.",
+        descripcion: "Vino tinto robusto con cuerpo medio-alto, aromas de frutos negros y roble tostado. Perfecto para acompañar cortes y tablas.",
         imagen: "img/Productos/2. Ribera del Duero (vino tinto).PNG"
     },
     {
         id: 8,
-        nombre: "Jamón Serrano Reserva",
-        categoria: "Carnes",
+        nombre: "Chianti Classico",
+        categoria: "Vinos",
         precio: 420,
         stock: 7,
-        descripcion: "Sobre de 100g de jamón serrano reserva de corte fino.",
+        descripcion: "Vino tinto italiano elegante con notas de cereza, violeta y especias suaves. Excelente con pastas, pizzas y carnes.",
         imagen: "img/Productos/3. Chianti Classico (vino tinto).PNG"
     },
     {
         id: 9,
         nombre: "Albariño",
-        categoria: "Complementos",
+        categoria: "Vinos",
         precio: 145,
         stock: 25,
-        descripcion: "vino blanco",
+        descripcion: "Vino blanco gallego fresco y aromático, notas cítricas y florales con final mineral. Perfecto para mariscos, pescados y tablas ligeras.",
         imagen: "img/Productos/4. Albariño (vino blanco).PNG"
     },
     {
