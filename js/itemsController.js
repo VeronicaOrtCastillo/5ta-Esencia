@@ -101,9 +101,9 @@ const productos = [
         id: 8,
         nombre: "Chianti Classico",
         categoria: "Vinos",
-        precio: 420,
-        stock: 7,
-        descripcion: "Vino tinto italiano elegante con notas de cereza, violeta y especias suaves. Excelente con pastas, pizzas y carnes.",
+        precio: 450,
+        stock: 9,
+        descripcion: "Vino tinto italiano equilibrado con notas de frutos rojos maduros, hierbas secas y un toque de roble. Ideal con pastas, quesos curados y carnes asadas.",
         imagen: "img/Productos/3. Chianti Classico (vino tinto).PNG"
     },
     {
