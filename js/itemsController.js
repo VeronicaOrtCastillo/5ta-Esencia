@@ -69,8 +69,8 @@ const productos = [
         categoria: "Tablas",
         precio: 350,
         stock: 15,
-        descripcion: `Ideal para una tarde de pelis con los amigos."
-        Incluye: 
+        descripcion: `Ideal para una tarde de pelis con los amigos.
+        Incluye:
          • Queso manchego
         • Jamón serrano 
         • Fruta de temporada
@@ -118,7 +118,7 @@ const productos = [
     {
         id: 10,
         nombre: "Sweet Red",
-        categoria: "Complementos",
+        categoria: "Vinos",
         precio: 189,
         stock: 30,
         descripcion: "Vino tinto dulce con perfil afrutado y equilibrado, destacan notas de frutos rojos maduros y un ligero toque floral. Su suavidad lo hace perfecto para maridar con postres o disfrutarlo ligeramente frío.",
