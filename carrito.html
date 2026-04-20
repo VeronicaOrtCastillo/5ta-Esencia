@@ -23,17 +23,34 @@
     </button>
 
     <nav class="nav" id="nav">
-      <a href="index.html" >Inicio</a>
+      <a href="index.html">Inicio</a>
       <a href="productos.html">Productos</a>
       <a href="contactanos.html">Contacto</a>
       <a href="nosotros.html">Sobre nosotros</a>
-      <a href="carrito.html" class="carrito-link"><img src="img/carrito.png" alt="Carrito de compras" class="carrito"></a>
-      <a href="login.html">Iniciar Sesion</a>
+      <a href="carrito.html" class="carrito-link active"><img src="img/carrito.png" alt="Carrito de compras" class="carrito"></a>
+      <a href="login.html">Iniciar Sesión</a>
     </nav>
   </div>
 </header>
 
 <main>
+
+  <section class="hero hero-carrito">
+    <div class="hero-overlay">
+      <h1 class="hero-title">MI SELECCIÓN</h1>
+      <p class="hero-subtitle">Los sabores que has elegido</p>
+    </div>
+  </section>
+
+  <section class="carrito-main">
+    <div class="container">
+      <div id="carrito-contenido" class="carrito-vacio">
+        <h2 class="section-title">Tu carrito está vacío</h2>
+        <p>Aún no has añadido productos a tu selección.</p>
+        <a href="productos.html" class="btn-submit">Ver catálogo</a>
+      </div>
+    </div>
+  </section>
 
 </main>
 

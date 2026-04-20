@@ -664,6 +664,33 @@ main {
   background: linear-gradient(135deg, var(--burdeos), var(--vino));
 }
 
+.hero-carrito {
+  background: linear-gradient(135deg, var(--vino), var(--dorado));
+}
+
+/* --- Carrito --- */
+.carrito-main {
+  padding: 60px 0 80px;
+  background: var(--blanco);
+}
+
+.carrito-vacio {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.carrito-vacio p {
+  color: var(--gris);
+  margin-bottom: 24px;
+}
+
+.carrito-vacio .btn-submit {
+  display: inline-block;
+  width: auto;
+  padding: 12px 32px;
+  text-decoration: none;
+}
+
 /* --- Intro productos --- */
 .productos-intro {
   padding: 50px 0 10px;
@@ -718,6 +745,18 @@ main {
   font-size: 3rem;
   margin-bottom: 12px;
   line-height: 1;
+}
+
+.producto-img-media {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.producto-categoria-tag {
+  font-size: 0.8rem;
+  color: var(--gris);
+  margin-bottom: 6px;
 }
 
 .producto-nombre {

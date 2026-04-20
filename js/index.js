@@ -1,7 +1,5 @@
 /* SCRIPT GENERAL - 5ta Esencia */
 
-/* SCRIPT GENERAL - 5ta Esencia */
-
 document.addEventListener('DOMContentLoaded', function () {
 
   // --- 1. LÓGICA DE PRODUCTOS ---
@@ -22,14 +20,14 @@ document.addEventListener('DOMContentLoaded', function () {
        * Si no, asumimos que es un emoji o texto y lo ponemos directo.
        */
       const esRutaImagen = item.imagen.includes('img/') || item.imagen.includes('http');
-      const contenidoImagen = esRutaImagen 
-        ? `<img src="${item.imagen}" alt="${item.nombre}" style="width:100%; height:auto; border-radius:8px;">` 
+      const contenidoImagen = esRutaImagen
+        ? `<img src="${item.imagen}" alt="${item.nombre}" class="producto-img-media">`
         : item.imagen;
 
       card.innerHTML = `
         <div class="producto-img">${contenidoImagen}</div>
         <h4 class="producto-nombre">${item.nombre}</h4>
-        ${item.categoria ? `<p class="producto-categoria-tag" style="font-size:0.8rem; color:gray;">${item.categoria}</p>` : ''}
+        ${item.categoria ? `<p class="producto-categoria-tag">${item.categoria}</p>` : ''}
         <p class="producto-desc">${item.descripcion}</p>
         <p class="producto-precio">$${item.precio.toLocaleString()} MXN</p>
         <button class="btn-comprar" onclick="agregarAlCarrito(${item.id})">
@@ -107,6 +105,48 @@ document.addEventListener('DOMContentLoaded', function () {
   if (toggle && nav) {
     toggle.addEventListener("click", function () {
       nav.classList.toggle("active");
+    });
+  }
+
+  // --- 4. FORMULARIO DE LOGIN ---
+  var loginForm = document.getElementById('loginForm');
+  var loginStatus = document.getElementById('loginStatus');
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      clearErrors();
+      if (loginStatus) {
+        loginStatus.textContent = '';
+        loginStatus.className = 'form-status';
+      }
+
+      var emailEl = document.getElementById('login-email');
+      var passEl = document.getElementById('login-password');
+      var emailErr = document.getElementById('error-login-email');
+      var passErr = document.getElementById('error-login-password');
+
+      var email = emailEl.value.trim();
+      var pass = passEl.value;
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      var isValid = true;
+      if (!emailRegex.test(email)) {
+        showError(emailEl, emailErr, 'Correo inválido');
+        isValid = false;
+      }
+      if (pass.length < 6) {
+        showError(passEl, passErr, 'Mínimo 6 caracteres');
+        isValid = false;
+      }
+      if (!isValid) return;
+
+      // Sin backend aún: solo feedback visual
+      if (loginStatus) {
+        loginStatus.textContent = 'Autenticación en desarrollo. Pronto disponible.';
+        loginStatus.className = 'form-status success';
+      }
     });
   }
 
