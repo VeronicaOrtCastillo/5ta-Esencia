@@ -4,93 +4,125 @@
 const productos = [
     {
         id: 1,
-        nombre: "Vino Tinto",
-        categoria: "Vinos",
-        precio: 650,
-        stock: 10,
-        descripcion: "Casa Madero 3V: Mezcla de Cabernet Sauvignon, Merlot y Tempranillo.",
-        imagen: "🍷"
-    },
-    {
-        id: 2,
-        nombre: "Vino Blanco",
-        categoria: "Vinos",
-        precio: 580,
-        stock: 12,
-        descripcion: "Monte Xanic Chardonnay: Notas de manzana verde, piña y toques florales.",
-        imagen: "🥂"
-    },
-    {
-        id: 3,
-        nombre: "Vino Rosado",
-        categoria: "Vinos",
-        precio: 690,
-        stock: 8,
-        descripcion: "L.A. Cetto Rosado: Refrescante con notas de fresa y frambuesa.",
-        imagen: "🌸"
-    },
-    {
-        id: 4,
         nombre: "Tabla Picnic",
         categoria: "Tablas",
         precio: 1200,
+        stock: 10,
+        descripcion: `Incluye:
+        •2 quesos maduros: queso Philadelphia con nuez, queso manchego Semi-Curado
+        •2 carnes frías: jamón serrano, salami seco estilo italiano
+        •Frutas de temporada
+        •Galletas integrales
+        •Mermelada de higos
+        •Almendras y pretzel de chocolate`,
+        imagen: "img/Productos/Tabla picnic.jpeg"
+    },
+    {
+        id: 2,
+        nombre: "Kit Pareja",
+        categoria: "Kits",
+        precio: 990,
+        stock: 12,
+        descripcion: `Incluye:
+        • 2 Carnes frías: Jamón serrano, Pepperoni
+        • 2 Quesos: Queso manchego, Queso Philadelphia con nuez
+        • Frutas de temporada: Dátiles, Almendras, Pretzel de chocolate
+        • Galletas integrales
+        • Botella de vino
+        • 2 Copas de vidrio`,
+        imagen: "img/Productos/Kit Pareja.jpeg"
+    },
+    {
+        id: 3,
+        nombre: "Individual Grazing Box",
+        categoria: "1 persona",
+        precio: 190,
+        stock: 8,
+        descripcion: `Incluye:
+        • Queso Philadelphia con nuez 
+        • Queso manchego 
+        • Chorizo español 
+        • Jamón serrano 
+        • Uvas 
+        • Dátil
+        • Almendras 
+        • Galletas integrales y pretzel de chocolate 
+        `,
+        imagen: "img/Productos/Individual Grazing Box.jpeg"
+    },
+    {
+        id: 4,
+        nombre: "For every ocassion",
+        categoria: "Tablas",
+        precio: 450,
         stock: 5,
-        descripcion: "Ideal para 4-6 personas. Incluye quesos maduros, carnes frías y frutos secos.",
-        imagen: "🧺"
+        descripcion: `Ideal para darle ese detalle a tu persona favorita en cualquier ocasión.
+        Incluye:
+        • Botella de vino tinto
+        • Caja colgante con porción pequeña de queso manchego, jamón serrano, fruta)`,
+
+        imagen: "img/Productos/For every ocassion (botella de vino con cajita colgante).png"
     },
     {
         id: 5,
-        nombre: "Kit Pareja",
+        nombre: "Tabla básica",
         categoria: "Tablas",
-        precio: 990,
+        precio: 350,
         stock: 15,
-        descripcion: "Experiencia romántica: Incluye botella de vino, quesos y 2 copas de vidrio.",
-        imagen: "❤️"
+        descripcion: `Ideal para una tarde de pelis con los amigos.
+        Incluye:
+         • Queso manchego
+        • Jamón serrano 
+        • Fruta de temporada
+        • Aceitunas
+        • Galletas integrales
+        • Mermelada de higos.`,
+        imagen: "img/Productos/Tabla basica.png"
     },
     {
         id: 6,
-        nombre: "Individual Grazing Box",
-        categoria: "Tablas",
+        nombre: "Rioja Reserva",
+        categoria: "Vinos",
         precio: 190,
         stock: 20,
-        descripcion: "Snack premium personal con jamón serrano, uvas, dátil y quesos.",
-        imagen: "🧀"
+        descripcion: "Vino tinto español con crianza en barrica, notas de frutos rojos, vainilla y especias. Ideal para carnes rojas y quesos curados.",
+        imagen: "img/Productos/1.Rioja Reserva (vino tinto).PNG"
     },
     {
         id: 7,
-        nombre: "Queso Manchego Curado",
-        categoria: "Quesos",
+        nombre: "Ribera del Duero",
+        categoria: "Vinos",
         precio: 350,
         stock: 10,
-        descripcion: "Queso artesanal de oveja con 6 meses de maduración.",
-        imagen: "🔪"
+        descripcion: "Vino tinto robusto con cuerpo medio-alto, aromas de frutos negros y roble tostado. Perfecto para acompañar cortes y tablas.",
+        imagen: "img/Productos/2. Ribera del Duero (vino tinto).PNG"
     },
     {
         id: 8,
-        nombre: "Jamón Serrano Reserva",
-        categoria: "Carnes",
+        nombre: "Chianti Classico",
+        categoria: "Vinos",
         precio: 420,
         stock: 7,
-        descripcion: "Sobre de 100g de jamón serrano reserva de corte fino.",
-        imagen: "🍖"
+        descripcion: "Vino tinto italiano elegante con notas de cereza, violeta y especias suaves. Excelente con pastas, pizzas y carnes.",
+        imagen: "img/Productos/3. Chianti Classico (vino tinto).PNG"
     },
     {
         id: 9,
-        nombre: "Mermelada de Higo",
-        categoria: "Complementos",
+        nombre: "Albariño",
+        categoria: "Vinos",
         precio: 145,
         stock: 25,
-        descripcion: "Mermelada artesanal perfecta para maridar con quesos fuertes.",
-        imagen: "🍯"
+        descripcion: "Vino blanco gallego fresco y aromático, notas cítricas y florales con final mineral. Perfecto para mariscos, pescados y tablas ligeras.",
+        imagen: "img/Productos/4. Albariño (vino blanco).PNG"
     },
     {
         id: 10,
-        nombre: "Pan de Masa Madre",
-        categoria: "Complementos",
-        precio: 95,
+        nombre: "Sweet Red",
+        categoria: "Vinos",
+        precio: 189,
         stock: 30,
-        descripcion: "Hogaza artesanal de masa madre, corteza crujiente y miga suave.",
-        imagen: "🥖"
+        descripcion: "Vino tinto dulce con perfil afrutado y equilibrado, destacan notas de frutos rojos maduros y un ligero toque floral. Su suavidad lo hace perfecto para maridar con postres o disfrutarlo ligeramente frío.",
+        imagen: "img/Productos/5. Sweet Red (vino dulce).PNG"   
     }
 ];
 

@@ -2,20 +2,30 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  // --- 1. LÓGICA DE PRODUCTOS (NUEVO) ---
+  // --- 1. LÓGICA DE PRODUCTOS ---
   const contenedor = document.getElementById('contenedor-productos');
+  
+  // Traemos los datos desde el LocalStorage
   const productosLocal = JSON.parse(localStorage.getItem("productos"));
 
-  // Solo se ejecuta si estamos en la página que tiene el contenedor de productos
   if (contenedor && productosLocal) {
-    contenedor.innerHTML = ""; // Limpiar contenedor
+    contenedor.innerHTML = ""; // Limpiar el contenedor antes de llenar
 
     productosLocal.forEach(item => {
       const card = document.createElement('article');
       card.classList.add('producto-card');
 
+      /** * VALIDACIÓN DE IMAGEN:
+       * Si la propiedad imagen contiene "img/" o "http", creamos una etiqueta <img>.
+       * Si no, asumimos que es un emoji o texto y lo ponemos directo.
+       */
+      const esRutaImagen = item.imagen.includes('img/') || item.imagen.includes('http');
+      const contenidoImagen = esRutaImagen
+        ? `<img src="${item.imagen}" alt="${item.nombre}" class="producto-img-media">`
+        : item.imagen;
+
       card.innerHTML = `
-        <div class="producto-img">${item.imagen}</div>
+        <div class="producto-img">${contenidoImagen}</div>
         <h4 class="producto-nombre">${item.nombre}</h4>
         ${item.categoria ? `<p class="producto-categoria-tag">${item.categoria}</p>` : ''}
         <p class="producto-desc">${item.descripcion}</p>
@@ -38,8 +48,10 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
 
       clearErrors();
-      formStatus.textContent = '';
-      formStatus.className = 'form-status';
+      if(formStatus) {
+        formStatus.textContent = '';
+        formStatus.className = 'form-status';
+      }
 
       var nombre = document.getElementById('nombre').value.trim();
       var email = document.getElementById('email').value.trim();
@@ -96,14 +108,56 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // --- 4. FORMULARIO DE LOGIN ---
+  var loginForm = document.getElementById('loginForm');
+  var loginStatus = document.getElementById('loginStatus');
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      clearErrors();
+      if (loginStatus) {
+        loginStatus.textContent = '';
+        loginStatus.className = 'form-status';
+      }
+
+      var emailEl = document.getElementById('login-email');
+      var passEl = document.getElementById('login-password');
+      var emailErr = document.getElementById('error-login-email');
+      var passErr = document.getElementById('error-login-password');
+
+      var email = emailEl.value.trim();
+      var pass = passEl.value;
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      var isValid = true;
+      if (!emailRegex.test(email)) {
+        showError(emailEl, emailErr, 'Correo inválido');
+        isValid = false;
+      }
+      if (pass.length < 6) {
+        showError(passEl, passErr, 'Mínimo 6 caracteres');
+        isValid = false;
+      }
+      if (!isValid) return;
+
+      // Sin backend aún: solo feedback visual
+      if (loginStatus) {
+        loginStatus.textContent = 'Autenticación en desarrollo. Pronto disponible.';
+        loginStatus.className = 'form-status success';
+      }
+    });
+  }
+
 });
 
 /**
- * FUNCIÓN AGREGAR AL CARRITO (Para uso futuro)
+ * FUNCIÓN GLOBAL PARA EL CARRITO
  */
 function agregarAlCarrito(id) {
-    console.log("Producto con ID " + id + " agregado al carrito.");
-    // Aquí podrías añadir lógica para guardar en otro LocalStorage llamado "carrito"
+    console.log("Producto con ID " + id + " añadido.");
+    alert("¡Producto añadido al carrito!");
 }
 
 /* ================= VALIDACIONES ================= */
@@ -150,7 +204,7 @@ function validateMensaje(value) {
   return true;
 }
 
-/* ================= ERRORES ================= */
+/* ================= MANEJO DE ERRORES ================= */
 
 function showError(inputEl, errorEl, message) {
   if (inputEl) inputEl.classList.add('input-error');
