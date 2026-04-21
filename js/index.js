@@ -1,7 +1,26 @@
 /* SCRIPT GENERAL - 5ta Esencia */
 
+/*COMMIT:Admin simulado
+const esAdmin = true;
+*/
 document.addEventListener('DOMContentLoaded', function () {
 
+  /*================= ADMIN CONTROLS =================
+  const panelAdmin = document.getElementById("admin-panel");
+  const adminControls = document.getElementById("admin-controls");
+
+  if (esAdmin) {
+    // mostramos SOLO el botón
+    if (adminControls) {
+      adminControls.style.display = "block";
+    }
+
+    // el formulario SIEMPRE empieza oculto
+    if (panelAdmin) {
+      panelAdmin.style.display = "none";
+    }
+  }
+  */
   // --- 1. LÓGICA DE PRODUCTOS ---
   const contenedor = document.getElementById('contenedor-productos');
   
@@ -37,7 +56,42 @@ document.addEventListener('DOMContentLoaded', function () {
       contenedor.appendChild(card);
     });
   }
+  /*COMMIT: CREACION DE FORMULARIO ADMIN
+  const formProducto = document.getElementById("formProducto");
 
+  if (formProducto) {
+    formProducto.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      let productos = JSON.parse(localStorage.getItem("productos")) || [];
+
+      const id = document.getElementById("producto-id").value;
+
+      const nuevoProducto = {
+        id: id ? Number(id) : Date.now(),
+        nombre: document.getElementById("nombre").value,
+        precio: Number(document.getElementById("precio").value),
+        categoria: document.getElementById("categoria").value,
+        descripcion: document.getElementById("descripcion").value,
+        imagen: document.getElementById("imagen").value,
+      };
+
+      if (id) {
+        productos = productos.map(p => p.id == id ? nuevoProducto : p);
+        mostrarAlerta("Producto actualizado", "success");
+      } else {
+        productos.push(nuevoProducto);
+        mostrarAlerta("Producto agregado", "success");
+      }
+
+      localStorage.setItem("productos", JSON.stringify(productos));
+      formProducto.reset();
+      document.getElementById("producto-id").value = "";
+
+      setTimeout(() => location.reload(), 1000);
+    });
+  }
+  */
   // --- 2. FORMULARIO DE CONTACTO ---
   var form = document.getElementById('contactForm');
   var btnSubmit = document.getElementById('btnSubmit');
@@ -152,9 +206,54 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-/**
- * FUNCIÓN GLOBAL PARA EL CARRITO
- */
+/* ================= COMMIT: FUNCIONES ADMIN ================= 
+
+function eliminarProducto(id) {
+  let productos = JSON.parse(localStorage.getItem("productos"));
+  productos = productos.filter(p => p.id !== id);
+
+  localStorage.setItem("productos", JSON.stringify(productos));
+  mostrarAlerta("Producto eliminado", "danger");
+
+  setTimeout(() => location.reload(), 1000);
+}
+
+function editarProducto(id) {
+  const productos = JSON.parse(localStorage.getItem("productos"));
+  const producto = productos.find(p => p.id === id);
+
+  document.getElementById("producto-id").value = producto.id;
+  document.getElementById("nombre").value = producto.nombre;
+  document.getElementById("precio").value = producto.precio;
+  document.getElementById("categoria").value = producto.categoria;
+  document.getElementById("descripcion").value = producto.descripcion;
+  document.getElementById("imagen").value = producto.imagen;
+
+  
+  const panel = document.getElementById("admin-panel");
+  if (panel) {
+    panel.style.display = "block";
+  }
+
+  window.scrollTo({ top: panel.offsetTop, behavior: "smooth" });
+}
+*/
+/* ================= COMMIT: ALERTAS ================= 
+
+function mostrarAlerta(msg, tipo) {
+  const alerta = document.getElementById("alerta-admin");
+
+  if (alerta) {
+    alerta.innerHTML = `
+      <div class="alert alert-${tipo}">
+        ${msg}
+      </div>
+    `;
+  }
+}
+*/
+
+/*FUNCIÓN GLOBAL PARA EL CARRITO*/
 function agregarAlCarrito(id) {
     console.log("Producto con ID " + id + " añadido.");
     alert("¡Producto añadido al carrito!");
