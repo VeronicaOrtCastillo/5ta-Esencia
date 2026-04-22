@@ -1,8 +1,8 @@
 /* SCRIPT GENERAL - 5ta Esencia */
 
-/*COMMIT:Admin simulado
+/*Admin simulado*/
 const esAdmin = true;
-*/
+
 document.addEventListener('DOMContentLoaded', function () {
 
   /*================= ADMIN CONTROLS =================
