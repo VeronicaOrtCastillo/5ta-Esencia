@@ -5,9 +5,9 @@ const esAdmin = true;
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  /*================= ADMIN CONTROLS =================
-  const panelAdmin = document.getElementById("admin-panel");
-  const adminControls = document.getElementById("admin-controls");
+  //================= ADMIN CONTROLS =================
+  const panelAdmin = document.getElementById("admin-panel"); 
+  const adminControls = document.getElementById("admin-controls"); 
 
   if (esAdmin) {
     // mostramos SOLO el botón
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
       panelAdmin.style.display = "none";
     }
   }
-  */
+  
   // --- 1. LÓGICA DE PRODUCTOS ---
   const contenedor = document.getElementById('contenedor-productos');
   
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
       contenedor.appendChild(card);
     });
   }
-  /*COMMIT: CREACION DE FORMULARIO ADMIN
+  //COMMIT: CREACION DE FORMULARIO ADMIN
   const formProducto = document.getElementById("formProducto");
 
   if (formProducto) {
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
       setTimeout(() => location.reload(), 1000);
     });
   }
-  */
+  
   // --- 2. FORMULARIO DE CONTACTO ---
   var form = document.getElementById('contactForm');
   var btnSubmit = document.getElementById('btnSubmit');
