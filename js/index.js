@@ -212,8 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-/* ================= COMMIT: FUNCIONES ADMIN ================= 
-
+// --- COMMIT: FUNCIONES ADMIN ---
 function eliminarProducto(id) {
   let productos = JSON.parse(localStorage.getItem("productos"));
   productos = productos.filter(p => p.id !== id);
@@ -243,7 +242,7 @@ function editarProducto(id) {
 
   window.scrollTo({ top: panel.offsetTop, behavior: "smooth" });
 }
-*/
+
 /* ================= COMMIT: ALERTAS ================= 
 
 function mostrarAlerta(msg, tipo) {
