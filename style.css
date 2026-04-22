@@ -1585,7 +1585,7 @@ main {
   }
 }
 /* ================= ADMIN ================= 
-COMMIT:ESTILO PARA FORMULARIO ADMIN
+ESTILO PARA FORMULARIO ADMIN*/
 .admin-panel {
   background: var(--crema);
   padding: 30px;
@@ -1606,7 +1606,7 @@ COMMIT:Creacion de estilos para botones
   font-size: 14px;
   transition: all 0.3s ease;
 }
-*/
+
 
 /* COMMIT: SE DA ESTILO AL BOTON EDITAR 
 .btn-edit {
