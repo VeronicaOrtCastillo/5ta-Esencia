@@ -1618,8 +1618,8 @@ COMMIT:Creacion de estilos para botones
   background: #c9a646;
   transform: translateY(-2px);
 }
-*/
-/* COMMIT: SE DA ESTILO AL BOTON ELIMINAR
+
+/*SE DA ESTILO AL BOTON ELIMINAR */
 .btn-delete {
   background: var(--vino);
   color: var(--crema);
@@ -1629,8 +1629,8 @@ COMMIT:Creacion de estilos para botones
   background: #5a0f1f;
   transform: translateY(-2px);
 }
- */
-/* COMMIT: SE DA ESTILO AL BOTON GUARDAR / PRINCIPAL 
+
+/* COMMIT: SE DA ESTILO AL BOTON GUARDAR / PRINCIPAL */
 .btn-submit,
 .btn-comprar {
   background: var(--burdeos);
@@ -1642,4 +1642,3 @@ COMMIT:Creacion de estilos para botones
   background: #3e0f1c;
   transform: translateY(-2px);
 }
-*/

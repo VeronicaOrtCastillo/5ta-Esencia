@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
       contenedor.appendChild(card);
     });
   }
-  //COMMIT: CREACION DE FORMULARIO ADMIN
+  //CREACION DE FORMULARIO ADMIN
   const formProducto = document.getElementById("formProducto");
 
   if (formProducto) {
@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-// --- COMMIT: FUNCIONES ADMIN ---
+// --- FUNCIONES ADMIN ---
 function eliminarProducto(id) {
   let productos = JSON.parse(localStorage.getItem("productos"));
   productos = productos.filter(p => p.id !== id);
@@ -243,7 +243,7 @@ function editarProducto(id) {
   window.scrollTo({ top: panel.offsetTop, behavior: "smooth" });
 }
 
-/* ================= COMMIT: ALERTAS ================= 
+/* ================= ALERTAS ================= */
 
 function mostrarAlerta(msg, tipo) {
   const alerta = document.getElementById("alerta-admin");
@@ -256,7 +256,6 @@ function mostrarAlerta(msg, tipo) {
     `;
   }
 }
-*/
 
 /*FUNCIÓN GLOBAL PARA EL CARRITO*/
 function agregarAlCarrito(id) {
