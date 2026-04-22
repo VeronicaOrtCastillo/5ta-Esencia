@@ -49,6 +49,12 @@ document.addEventListener('DOMContentLoaded', function () {
         ${item.categoria ? `<p class="producto-categoria-tag">${item.categoria}</p>` : ''}
         <p class="producto-desc">${item.descripcion}</p>
         <p class="producto-precio">$${item.precio.toLocaleString()} MXN</p>
+
+        ${esAdmin ? `
+          <button onclick="editarProducto(${item.id})" class="btn-edit">Editar</button>
+          <button onclick="eliminarProducto(${item.id})" class="btn-delete">Eliminar</button>
+        ` : ""}
+        
         <button class="btn-comprar" onclick="agregarAlCarrito(${item.id})">
           Agregar al carrito
         </button>
