@@ -72,7 +72,7 @@ img {
   gap: 8px;
 }
 /* --- Carrito ---*/
-.carito-link {
+.carrito-link {
     display: flex;
     align-items: center;
     padding: 0 10px;
@@ -1585,14 +1585,14 @@ main {
   }
 }
 /* ================= ADMIN ================= 
-COMMIT:ESTILO PARA FORMULARIO ADMIN
+ESTILO PARA FORMULARIO ADMIN*/
 .admin-panel {
   background: var(--crema);
   padding: 30px;
   border: 1px solid #e6e2de;
   margin-bottom: 40px;
 }
-COMMIT:Creacion de estilos para botones
+
 .btn-edit,
 .btn-delete,
 .btn-submit,
@@ -1606,9 +1606,31 @@ COMMIT:Creacion de estilos para botones
   font-size: 14px;
   transition: all 0.3s ease;
 }
-*/
 
-/* COMMIT: SE DA ESTILO AL BOTON EDITAR 
+/* ================= ADMIN ================= */
+
+.admin-panel {
+  background: var(--crema);
+  padding: 30px;
+  border: 1px solid #e6e2de;
+  margin-bottom: 40px;
+}
+
+.btn-edit,
+.btn-delete,
+.btn-submit,
+.btn-comprar {
+  border: none;
+  padding: 8px 14px;
+  margin: 6px 4px;
+  cursor: pointer;
+  border-radius: 8px;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+/* EDITAR */
 .btn-edit {
   background: var(--dorado);
   color: var(--burdeos);
@@ -1618,8 +1640,8 @@ COMMIT:Creacion de estilos para botones
   background: #c9a646;
   transform: translateY(-2px);
 }
-*/
-/* COMMIT: SE DA ESTILO AL BOTON ELIMINAR
+
+/* ELIMINAR */
 .btn-delete {
   background: var(--vino);
   color: var(--crema);
@@ -1629,8 +1651,8 @@ COMMIT:Creacion de estilos para botones
   background: #5a0f1f;
   transform: translateY(-2px);
 }
- */
-/* COMMIT: SE DA ESTILO AL BOTON GUARDAR / PRINCIPAL 
+
+/* GUARDAR / PRINCIPAL */
 .btn-submit,
 .btn-comprar {
   background: var(--burdeos);
@@ -1642,4 +1664,3 @@ COMMIT:Creacion de estilos para botones
   background: #3e0f1c;
   transform: translateY(-2px);
 }
-*/
