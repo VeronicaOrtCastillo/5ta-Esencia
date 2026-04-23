@@ -10,35 +10,23 @@ document.addEventListener('DOMContentLoaded', function () {
   const adminControls = document.getElementById("admin-controls"); 
 
   if (esAdmin) {
-    // mostramos SOLO el botón
-    if (adminControls) {
-      adminControls.style.display = "block";
-    }
-
-    // el formulario SIEMPRE empieza oculto
-    if (panelAdmin) {
-      panelAdmin.style.display = "none";
-    }
+    if (adminControls) adminControls.style.display = "block";
+    if (panelAdmin) panelAdmin.style.display = "none";
   }
   
-  // --- 1. LÓGICA DE PRODUCTOS ---
+  // ================= PRODUCTOS =================
   const contenedor = document.getElementById('contenedor-productos');
-  
-  // Traemos los datos desde el LocalStorage
   const productosLocal = JSON.parse(localStorage.getItem("productos"));
 
   if (contenedor && productosLocal) {
-    contenedor.innerHTML = ""; // Limpiar el contenedor antes de llenar
+    contenedor.innerHTML = "";
 
     productosLocal.forEach(item => {
       const card = document.createElement('article');
       card.classList.add('producto-card');
 
-      /** * VALIDACIÓN DE IMAGEN:
-       * Si la propiedad imagen contiene "img/" o "http", creamos una etiqueta <img>.
-       * Si no, asumimos que es un emoji o texto y lo ponemos directo.
-       */
       const esRutaImagen = item.imagen.includes('img/') || item.imagen.includes('http');
+      
       const contenidoImagen = esRutaImagen
         ? `<img src="${item.imagen}" alt="${item.nombre}" class="producto-img-media">`
         : item.imagen;
@@ -54,25 +42,119 @@ document.addEventListener('DOMContentLoaded', function () {
           <button onclick="editarProducto(${item.id})" class="btn-edit">Editar</button>
           <button onclick="eliminarProducto(${item.id})" class="btn-delete">Eliminar</button>
         ` : ""}
-        
+
+        <!-- 🔥 BOTÓN QUE USA LA FUNCIÓN MODIFICADA -->
         <button class="btn-comprar" onclick="agregarAlCarrito(${item.id})">
           Agregar al carrito
         </button>
       `;
+
       contenedor.appendChild(card);
     });
   }
-  // ================= 2. FORMULARIO ADMIN (CRUD) =================
-  const formProducto = document.getElementById("formProducto");
 
+    // =================MOSTRAR CARRITO =================
+
+  const contenedorCarrito = document.getElementById("contenedor-carrito");
+
+  if (contenedorCarrito) {
+
+    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    if (carrito.length === 0) {
+
+      contenedorCarrito.innerHTML = "<p>Tu carrito está vacío 🛒</p>";
+
+    } else {
+
+      contenedorCarrito.innerHTML = "";
+
+      carrito.forEach(item => {
+
+        const esRutaImagen = item.imagen && (item.imagen.includes('img/') || item.imagen.includes('http'));
+
+        const imagen = esRutaImagen
+
+          ? `<img src="${item.imagen}" alt="${item.nombre}">`
+
+          : `<div class="img-placeholder">${item.imagen}</div>`;
+
+        const card = document.createElement("div");
+
+        card.classList.add("carrito-item");
+
+        card.innerHTML = `
+
+          <div class="carrito-img">
+
+            ${imagen}
+
+          </div>
+
+          <div class="carrito-info">
+
+            <h4>${item.nombre}</h4>
+
+            <p>${item.descripcion || ""}</p>
+
+            <p class="precio">$${item.precio} MXN</p>
+
+          </div>
+
+          <div class="carrito-controles">
+
+            <button onclick="cambiarCantidad(${item.id}, -1)">−</button>
+
+            <span>${item.cantidad}</span>
+
+            <button onclick="cambiarCantidad(${item.id}, 1)">+</button>
+
+            <button class="btn-delete" onclick="eliminarDelCarrito(${item.id})">
+
+              ✕
+
+            </button>
+
+          </div>
+
+        `;
+        contenedorCarrito.appendChild(card);
+      });
+      //TOTAL
+
+      const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+
+      const totalHTML = document.createElement("div");
+
+      totalHTML.classList.add("carrito-total");
+
+      totalHTML.innerHTML = `
+
+        <h3>Total: $${total} MXN</h3>
+
+        <button class="btn-pagar" onclick="finalizarCompra()">
+
+          Finalizar compra
+
+        </button>
+
+      `;
+      contenedorCarrito.appendChild(totalHTML);
+
+    }
+
+  }
+
+  // ================= FORMULARIO ADMIN (CRUD) =================
+  const formProducto = document.getElementById("formProducto");
+  
   if (formProducto) {
     formProducto.addEventListener("submit", function(e) {
       e.preventDefault();
-
+      
       let productos = JSON.parse(localStorage.getItem("productos")) || [];
-
       const id = document.getElementById("producto-id").value;
-
+      
       const nuevoProducto = {
         id: id ? Number(id) : Date.now(),
         nombre: document.getElementById("nombre").value,
@@ -93,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
       localStorage.setItem("productos", JSON.stringify(productos));
       formProducto.reset();
       document.getElementById("producto-id").value = "";
-
+      
       setTimeout(() => location.reload(), 1000);
     });
   }
@@ -209,17 +291,30 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
-
 });
 
-function toggleFormulario() {
-  const panel = document.getElementById("admin-panel");
-
-  if (panel.style.display === "none" || panel.style.display === "") {
-    panel.style.display = "block";
-  } else {
-    panel.style.display = "none";
+/* ================= 🛒 FUNCIÓN MODIFICADA ================= */
+function agregarAlCarrito(id) {
+  //Obtener productos
+  const productos = JSON.parse(localStorage.getItem("productos")) || [];
+  //Buscar producto
+  const producto = productos.find(p => p.id === id)
+  if (!producto) {
+    alert("Producto no encontrado");
+    return;
   }
+  //Obtener carrito o crear uno
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || []
+  //Validar si ya existe
+  const existe = carrito.find(p => p.id === id)
+  if (existe) {
+    existe.cantidad += 1; // suma cantidad
+  } else {
+    carrito.push({ ...producto, cantidad: 1 });
+  }
+  //Guardar en LocalStorage
+  localStorage.setItem("carrito", JSON.stringify(carrito))
+  alert("Producto agregado al carrito 🛒");
 }
 
 // --- FUNCIONES ADMIN ---
@@ -253,6 +348,45 @@ function editarProducto(id) {
   window.scrollTo({ top: panel.offsetTop, behavior: "smooth" });
 }
 
+function cambiarCantidad(id, cambio) {
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+  carrito = carrito.map(item => {
+    if (item.id === id) {
+      item.cantidad += cambio;
+      if (item.cantidad < 1) item.cantidad = 1;
+    }
+    return item;
+  });
+
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  location.reload();
+}
+
+function eliminarDelCarrito(id) {
+  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+  carrito = carrito.filter(p => p.id !== id);
+
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+
+  location.reload();
+}
+
+function finalizarCompra() {
+  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+  if (carrito.length === 0) {
+    alert("Tu carrito está vacío 🛒");
+    return;
+  }
+
+  alert("✅ Compra realizada con éxito. ¡Gracias por tu compra!");
+
+  localStorage.removeItem("carrito");
+
+  location.reload();
+}
 /* ================= ALERTAS ================= */
 
 function mostrarAlerta(msg, tipo) {
@@ -267,10 +401,15 @@ function mostrarAlerta(msg, tipo) {
   }
 }
 
-/*FUNCIÓN GLOBAL PARA EL CARRITO*/
-function agregarAlCarrito(id) {
-    console.log("Producto con ID " + id + " añadido.");
-    alert("¡Producto añadido al carrito!");
+/* ================= TOGGLE FORM ================= */
+function toggleFormulario() {
+  const panel = document.getElementById("admin-panel");
+
+  if (panel.style.display === "none" || panel.style.display === "") {
+    panel.style.display = "block";
+  } else {
+    panel.style.display = "none";
+  }
 }
 
 /* ================= VALIDACIONES ================= */
