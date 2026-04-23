@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
       contenedor.appendChild(card);
     });
   }
-  //COMMIT: CREACION DE FORMULARIO ADMIN
+  // ================= 2. FORMULARIO ADMIN (CRUD) =================
   const formProducto = document.getElementById("formProducto");
 
   if (formProducto) {
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
       setTimeout(() => location.reload(), 1000);
     });
   }
-  
+
   // --- 2. FORMULARIO DE CONTACTO ---
   var form = document.getElementById('contactForm');
   var btnSubmit = document.getElementById('btnSubmit');
@@ -212,7 +212,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-// --- COMMIT: FUNCIONES ADMIN ---
+function toggleFormulario() {
+  const panel = document.getElementById("admin-panel");
+
+  if (panel.style.display === "none" || panel.style.display === "") {
+    panel.style.display = "block";
+  } else {
+    panel.style.display = "none";
+  }
+}
+
+// --- FUNCIONES ADMIN ---
 function eliminarProducto(id) {
   let productos = JSON.parse(localStorage.getItem("productos"));
   productos = productos.filter(p => p.id !== id);
@@ -243,7 +253,7 @@ function editarProducto(id) {
   window.scrollTo({ top: panel.offsetTop, behavior: "smooth" });
 }
 
-/* ================= COMMIT: ALERTAS ================= 
+/* ================= ALERTAS ================= */
 
 function mostrarAlerta(msg, tipo) {
   const alerta = document.getElementById("alerta-admin");
@@ -256,7 +266,6 @@ function mostrarAlerta(msg, tipo) {
     `;
   }
 }
-*/
 
 /*FUNCIÓN GLOBAL PARA EL CARRITO*/
 function agregarAlCarrito(id) {

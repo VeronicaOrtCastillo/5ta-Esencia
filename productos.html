@@ -26,9 +26,9 @@
       </button>
       <nav class="nav" id="nav">
       <a href="index.html">Inicio</a>
-      <a href="productos.html">Productos</a>
+      <a href="productos.html" class="active">Productos</a>
       <a href="contactanos.html">Contacto</a>
-      <a href="nosotros.html" class="active">Sobre nosotros</a>
+      <a href="nosotros.html" >Sobre nosotros</a>
       <a href="carrito.html" class="carrito-link"><img src="img/carrito.png" alt="Carrito de compras" class="carrito"></a>
       <a href="login.html">Iniciar Sesion</a>
       </nav>
@@ -56,36 +56,71 @@
       </div>
     </section>
 
-    <!--Se agrega boton de admin--> 
-    <div id="admin-controls" style="display:none;">
-      <button onclick="toggleFormulario()">+ Agregar producto</button>
+    <!-- ================= BOTÓN ADMIN ================= -->
+    <div id="admin-controls" style="display:none; text-align:center; margin:30px 0;">
+      <button class="btn-submit" onclick="toggleFormulario()">
+        + Agregar nuevo producto
+      </button>
     </div>
 
-    <!--Se crea el panel admin con el formulario para agregar y editar productos-->
-    <section id="admin-panel" style="display:none;">
+    <!-- ================= PANEL ADMIN (OCULTO) ================= -->
+    <section class="container admin-panel" id="admin-panel" style="display:none;">
+    
+      <h3 class="productos-categoria">Panel de Administración</h3>
+    
       <form id="formProducto">
+      
+        <!-- ID oculto para editar -->
         <input type="hidden" id="producto-id">
-        <input type="text" id="nombre" required>
-        <input type="number" id="precio" required>
-        <input type="text" id="categoria">
-        <input type="text" id="imagen">
-        <textarea id="descripcion"></textarea>
-        <button type="submit">Guardar</button>
+      
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" id="nombre" required>
+        </div>
+      
+        <div class="form-group">
+          <label>Precio</label>
+          <input type="number" id="precio" required>
+        </div>
+      
+        <div class="form-group">
+          <label>Categoría</label>
+          <input type="text" id="categoria">
+        </div>
+      
+        <div class="form-group">
+          <label>Imagen (ruta)</label>
+          <input type="text" id="imagen">
+        </div>
+      
+        <div class="form-group">
+          <label>Descripción</label>
+          <textarea id="descripcion"></textarea>
+        </div>
+      
+        <button type="submit" class="btn-submit">Guardar Producto</button>
+      
+        <!-- BOTÓN CANCELAR -->
+        <button type="button" class="btn-submit" onclick="toggleFormulario()"
+          style="background: var(--gris); margin-top:10px;">
+          Cancelar
+        </button>
+      
       </form>
-      <!--Se agregan alertas-->
-      <div id="alerta-admin"></div>
+    
+        <!-- ALERTAS -->
+        <div id="alerta-admin" class="mt-3"></div>
     </section>
+    
     <section class="productos-main">
       <div class="container">
 
         <h3 class="productos-categoria">Nuestro Catálogo</h3>
         
-        <div class="productos-grid" id="contenedor-productos">
-          </div>
-
+        <div class="productos-grid" id="contenedor-productos"></div>
       </div>
     </section>
-    </main>
+  </main>
 
   <footer class="footer">
     <div class="footer-inner">
