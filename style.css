@@ -1737,3 +1737,312 @@ ESTILO PARA FORMULARIO ADMIN*/
 .btn-pagar:hover {
   background: #333;
 }
+/* --- Lógica del Carrusel --- */
+.carousel-container {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  margin-top: 60px; /* Altura del header */
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-title-script {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 4rem;
+  color: var(--blanco);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.carousel-caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .catalog-item { flex-direction: column; text-align: center; }
+  .hero-title-script { font-size: 2.5rem; }
+}
+/* Esto asegura que la imagen rellene el espacio de 400px sin deformarse */
+.carousel-slide img {
+  width: 100%;
+  height: 100%; 
+  object-fit: cover;
+  object-position: center; 
+}
+
+/* El contenedor mantiene su tamaño original */
+.carousel-container {
+  position: relative;
+  height: 400px; 
+  overflow: hidden;
+  margin-top: 60px;
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+}
+/* 1. El contenedor se queda fijo en 400px */
+.carousel-container {
+  position: relative;
+  height: 400px; 
+  width: 100%;
+  overflow: hidden;
+  margin-top: 60px; /* Ajuste por el header fijo */
+  background-color: var(--burdeos); /* Fondo por si la imagen tarda en cargar */
+}
+
+/* 2. Cada slide debe ocupar el 100% del contenedor */
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  display: block; /* Aseguramos que el contenedor del slide exista */
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+
+.carousel-slide img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important; /* Corta los bordes sobrantes para no deformar */
+  object-position: center !important; /* Centra la foto del picnic/momento */
+}
+
+
+
+.carousel-slide img {
+  width: 100% !important;
+  height: 400px !important; /* Fuerza la altura para que no se estire hacia abajo */
+  object-fit: cover !important; /* Corta los lados sobrantes de la foto de WhatsApp */
+  object-position: center !important; /* Centra la imagen para que se vea lo importante */
+  display: block !important;
+}
+
+.carousel-container {
+  position: relative;
+  height: 400px !important; /* Mantiene el carrusel del mismo tamaño siempre */
+  width: 100%;
+  overflow: hidden;
+  margin-top: 60px; /* Esto es para que no se tape con el header */
+}
+
+.welcome-section {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.welcome-text {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--burdeos);
+}
+
+.catalog-previews {
+  padding-bottom: 60px;
+}
+
+.catalog-item {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.catalog-img {
+  flex: 1;
+  max-width: 400px;
+}
+
+.catalog-info-home {
+  flex: 1;
+}
+
+.catalog-info-home h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.catalog-info-home p {
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  color: var(--gris);
+}
+
+.ver-catalogo {
+  font-weight: bold;
+  text-decoration: underline;
+  font-size: 1.1rem;
+}
+
+/* --- Lógica del Carrusel --- */
+.carousel-container {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  margin-top: 60px; /* Altura del header */
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-title-script {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 4rem;
+  color: var(--blanco);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.carousel-caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .catalog-item { flex-direction: column; text-align: center; }
+  .hero-title-script { font-size: 2.5rem; }
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%; /* Mantiene la altura fija que definimos para el contenedor */
+  object-fit: cover; /* Recorta la imagen para que llene el área manteniendo su proporción */
+  object-position: center; /* Centra la imagen para que lo más importante quede a la vista */
+}
+
+/* El contenedor mantiene su tamaño original */
+.carousel-container {
+  position: relative;
+  height: 400px; 
+  overflow: hidden;
+  margin-top: 60px;
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+}
+/* 1. El contenedor se queda fijo en 400px */
+.carousel-container {
+  position: relative;
+  height: 400px; 
+  width: 100%;
+  overflow: hidden;
+  margin-top: 60px; /* Ajuste por el header fijo */
+  background-color: var(--burdeos); /* Fondo por si la imagen tarda en cargar */
+}
+
+/* 2. Cada slide debe ocupar el 100% del contenedor */
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  display: block; /* Aseguramos que el contenedor del slide exista */
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+
+.carousel-slide img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important; /* Corta los bordes sobrantes para no deformar */
+  object-position: center !important; /* Centra la foto del picnic/momento */
+}
+
+
+.carousel-slide img {
+  width: 100% !important;
+  height: 400px !important; /* Fuerza la altura para que no se estire hacia abajo */
+  object-fit: cover !important; /* Corta los lados sobrantes de la foto de WhatsApp */
+  object-position: center !important; /* Centra la imagen para que se vea lo importante */
+  display: block !important;
+}
+
+.carousel-container {
+  position: relative;
+  height: 400px !important; /* Mantiene el carrusel del mismo tamaño siempre */
+  width: 100%;
+  overflow: hidden;
+  margin-top: 60px; /* Esto es para que no se tape con el header */
+}

@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function () {
           <button onclick="eliminarProducto(${item.id})" class="btn-delete">Eliminar</button>
         ` : ""}
 
-        <!-- 🔥 BOTÓN QUE USA LA FUNCIÓN MODIFICADA -->
         <button class="btn-comprar" onclick="agregarAlCarrito(${item.id})">
           Agregar al carrito
         </button>
@@ -291,6 +290,10 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
+
+  // 🔥 NUEVO: INICIAR CARRUSEL AL CARGAR
+  iniciarCarrusel();
+
 });
 
 /* ================= 🛒 FUNCIÓN MODIFICADA ================= */
@@ -315,6 +318,20 @@ function agregarAlCarrito(id) {
   //Guardar en LocalStorage
   localStorage.setItem("carrito", JSON.stringify(carrito))
   alert("Producto agregado al carrito 🛒");
+}
+
+/* =================  FUNCIÓN DEL CARRUSEL ================= */
+function iniciarCarrusel() {
+  const slides = document.querySelectorAll('.carousel-slide');
+  let currentSlide = 0;
+
+  if (slides.length === 0) return;
+
+  setInterval(() => {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.add('active');
+  }, 4000); 
 }
 
 // --- FUNCIONES ADMIN ---
