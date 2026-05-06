@@ -93,12 +93,12 @@ INSERT INTO detalle_pedido (id_pedido, id_producto, cantidad, precio_unitario, s
 (5, 5, 3, 465.00, 1395.00);
 
 -- CONTACTO --
-INSERT INTO contacto (nombre, correo, mensaje) VALUES
-('Carlos Lopez', 'carlos@mail.com', 'Quiero informacion sobre sus productos'),
-('Maria Perez', 'maria@mail.com', 'Tienen envios a domicilio?'),
-('Luis Gomez', 'luis@mail.com', 'Me interesa una tabla personalizada'),
-('Ana Torres', 'ana@mail.com', 'Cual es su producto mas vendido?'),
-('Jorge Ruiz', 'jorge@mail.com', 'Necesito una cotizacion para evento');
+INSERT INTO contacto (nombre, correo, mensaje, id_usuario) VALUES
+('Vero', 'vero@mail.com', 'Soy cliente registrada', 1),
+('Maria Perez', 'maria@mail.com', 'Tienen envios a domicilio?', NULL),
+('Luis Gomez', 'luis@mail.com', 'Me interesa una tabla personalizada', NULL),
+('Ana Torres', 'ana@mail.com', 'Cual es su producto mas vendido?', NULL),
+('Jorge Ruiz', 'jorge@mail.com', 'Necesito una cotizacion para evento', NULL);
 
 SELECT * FROM usuarios;
 SELECT *FROM  categorias;
