@@ -79,8 +79,11 @@ FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
 -- CONTACTO --
 CREATE TABLE contacto (
   id_contacto INT AUTO_INCREMENT PRIMARY KEY,
+  id_usuario INT NULL,
   nombre VARCHAR(50) NOT NULL,
   correo VARCHAR(100) NOT NULL,
   mensaje VARCHAR(300) NOT NULL,
-  fecha DATETIME DEFAULT CURRENT_TIMESTAMP
+  fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
 );
