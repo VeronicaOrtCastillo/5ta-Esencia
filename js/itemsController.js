@@ -10,12 +10,13 @@ if (!localStorage.getItem("productos")) {
             precio: 1200,
             stock: 10,
             descripcion: `Incluye:
-            •2 quesos maduros: queso Philadelphia con nuez, queso manchego Semi-Curado
-            •2 carnes frías: jamón serrano, salami seco estilo italiano
-            •Frutas de temporada
-            •Galletas integrales
-            •Mermelada de higos
-            •Almendras y pretzel de chocolate`,
+            • 2 quesos maduros: queso Philadelphia con nuez y queso manchego semicurado.
+            • 2 carnes frías: jamón serrano y salami seco estilo italiano.
+            • Frutas de temporada.
+            • Galletas integrales.
+            • Mermelada de higos.
+            • Almendras y pretzel de chocolate.`,
+
             imagen: "img/Productos/Tabla picnic.jpeg"
         },
         {
@@ -25,42 +26,41 @@ if (!localStorage.getItem("productos")) {
             precio: 990,
             stock: 12,
             descripcion: `Incluye:
-            • 2 Carnes frías: Jamón serrano, Pepperoni
-            • 2 Quesos: Queso manchego, Queso Philadelphia con nuez
-            • Frutas de temporada: Dátiles, Almendras, Pretzel de chocolate
-            • Galletas integrales
-            • Botella de vino
-            • 2 Copas de vidrio`,
+            • 2 carnes frías: jamón serrano y pepperoni.
+            • 2 quesos: queso manchego y queso Philadelphia con nuez.
+            • Frutas de temporada: dátiles, almendras y pretzel de chocolate.
+            • Galletas integrales.
+            • Botella de vino.
+            • 2 copas de vidrio.`,
             imagen: "img/Productos/Kit Pareja.jpeg"
         },
         {
             id: 3,
             nombre: "Individual Grazing Box",
-            categoria: "1 persona",
+            categoria: "Individual",
             precio: 190,
             stock: 8,
             descripcion: `Incluye:
-            • Queso Philadelphia con nuez 
-            • Queso manchego 
-            • Chorizo español 
-            • Jamón serrano 
-            • Uvas 
-            • Dátil
-            • Almendras 
-            • Galletas integrales y pretzel de chocolate 
-            `,
+            • Queso Philadelphia con nuez.
+            • Queso manchego.
+            • Chorizo español.
+            • Jamón serrano.
+            • Uvas.
+            • Dátil.
+            • Almendras.
+            • Galletas integrales y pretzel de chocolate.`,
             imagen: "img/Productos/Individual Grazing Box.jpeg"
         },
         {
             id: 4,
-            nombre: "For every ocassion",
+            nombre: "For Every Occasion",
             categoria: "Tablas",
             precio: 450,
             stock: 5,
-            descripcion: `Ideal para darle ese detalle a tu persona favorita en cualquier ocasión.
+            descripcion: `Ideal para darle ese detalle especial a tu persona favorita en cualquier ocasión.
             Incluye:
-            • Botella de vino tinto
-            • Caja colgante con porción pequeña de queso manchego, jamón serrano, fruta)`,
+            • Botella de vino tinto.
+            • Caja colgante con una porción pequeña de queso manchego, jamón serrano y fruta.`,
 
             imagen: "img/Productos/For every ocassion (botella de vino con cajita colgante).png"
         },
@@ -70,13 +70,13 @@ if (!localStorage.getItem("productos")) {
             categoria: "Tablas",
             precio: 350,
             stock: 15,
-            descripcion: `Ideal para una tarde de pelis con los amigos.
+            descripcion: `Ideal para una tarde de películas con amigos.
             Incluye:
-             • Queso manchego
-            • Jamón serrano 
-            • Fruta de temporada
-            • Aceitunas
-            • Galletas integrales
+            • Queso manchego.
+            • Jamón serrano.
+            • Fruta de temporada.
+            • Aceitunas.
+            • Galletas integrales.
             • Mermelada de higos.`,
             imagen: "img/Productos/Tabla basica.png"
         },
@@ -95,7 +95,7 @@ if (!localStorage.getItem("productos")) {
             categoria: "Vinos",
             precio: 350,
             stock: 10,
-            descripcion: "Vino tinto robusto con cuerpo medio-alto, aromas de frutos negros y roble tostado. Perfecto para acompañar cortes y tablas.",
+            descripcion: "Vino tinto robusto de cuerpo medio-alto, con aromas de frutos negros y roble tostado. Perfecto para acompañar cortes y tablas.",
             imagen: "img/Productos/2. Ribera del Duero (vino tinto).PNG"
         },
         {
@@ -122,7 +122,7 @@ if (!localStorage.getItem("productos")) {
             categoria: "Vinos",
             precio: 189,
             stock: 30,
-            descripcion: "Vino tinto dulce con perfil afrutado y equilibrado, destacan notas de frutos rojos maduros y un ligero toque floral. Su suavidad lo hace perfecto para maridar con postres o disfrutarlo ligeramente frío.",
+            descripcion: "Vino tinto dulce con perfil afrutado y equilibradoDestacan las notas de frutos rojos maduros y un ligero toque floral. Su suavidad lo hace perfecto para maridar con postres o disfrutarlo ligeramente frío.",
             imagen: "img/Productos/5. Sweet Red (vino dulce).PNG"   
         }
     ];
