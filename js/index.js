@@ -1,7 +1,25 @@
 /* SCRIPT GENERAL - 5ta Esencia */
 
-/*Admin simulado*/
-const esAdmin = true;
+/* ==== OBTENER INFORMACION DEL USUSARIO ====*/
+/*
+  Recuperamos el usuario guardado en LocalStorage.
+  Cuando el backend haga login correctamente,
+  guardaremos ahí los datos del usuario.
+*/
+const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+/*
+  Verificamos si el usuario tiene rol ADMINISTRADOR.
+
+  El operador ?. evita errores si usuario es null.
+
+  Si el rol es "ADMINISTRADOR":
+      esAdmin = true
+
+  Si el rol es "USUARIO" o no existe:
+      esAdmin = false
+*/
+const esAdmin = usuario?.rol === "ADMINISTRADOR";
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -9,9 +27,32 @@ document.addEventListener('DOMContentLoaded', function () {
   const panelAdmin = document.getElementById("admin-panel"); 
   const adminControls = document.getElementById("admin-controls"); 
 
+  /*
+  Si el usuario es administrador:
+  mostramos los controles del panel admin.
+  */
   if (esAdmin) {
-    if (adminControls) adminControls.style.display = "block";
-    if (panelAdmin) panelAdmin.style.display = "none";
+  
+    if (adminControls) {
+      adminControls.style.display = "block";
+    }
+  
+  } else {
+  
+    /*
+      Si NO es administrador:
+      ocultamos completamente:
+        - botón agregar producto
+        - panel administrador
+    */
+  
+    if (adminControls) {
+      adminControls.style.display = "none";
+    }
+  
+    if (panelAdmin) {
+      panelAdmin.style.display = "none";
+    }
   }
   
   // ================= PRODUCTOS =================
