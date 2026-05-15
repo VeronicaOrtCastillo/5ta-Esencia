@@ -1,139 +1,117 @@
-//Crear 10 objetos en JavaScript y almacenarlos en local  
-// Solo cargar productos iniciales si NO existen aún
-if (!localStorage.getItem("productos")) {                              
-    // 1. Definición del arreglo de productos (La base de datos del ecommerce)
-    const productos = [
-        {
-            id: 1,
-            nombre: "Tabla Picnic",
-            categoria: "Tablas",
-            precio: 1200,
-            stock: 10,
-            descripcion: `Incluye:
-            • 2 quesos maduros: queso Philadelphia con nuez y queso manchego semicurado.
-            • 2 carnes frías: jamón serrano y salami seco estilo italiano.
-            • Frutas de temporada.
-            • Galletas integrales.
-            • Mermelada de higos.
-            • Almendras y pretzel de chocolate.`,
+/* ITEMS CONTROLLER - PRODUCTOS DESDE BACKEND */
 
-            imagen: "img/Productos/Tabla picnic.jpeg"
-        },
-        {
-            id: 2,
-            nombre: "Kit Pareja",
-            categoria: "Kits",
-            precio: 990,
-            stock: 12,
-            descripcion: `Incluye:
-            • 2 carnes frías: jamón serrano y pepperoni.
-            • 2 quesos: queso manchego y queso Philadelphia con nuez.
-            • Frutas de temporada: dátiles, almendras y pretzel de chocolate.
-            • Galletas integrales.
-            • Botella de vino.
-            • 2 copas de vidrio.`,
-            imagen: "img/Productos/Kit Pareja.jpeg"
-        },
-        {
-            id: 3,
-            nombre: "Individual Grazing Box",
-            categoria: "Individual",
-            precio: 190,
-            stock: 8,
-            descripcion: `Incluye:
-            • Queso Philadelphia con nuez.
-            • Queso manchego.
-            • Chorizo español.
-            • Jamón serrano.
-            • Uvas.
-            • Dátil.
-            • Almendras.
-            • Galletas integrales y pretzel de chocolate.`,
-            imagen: "img/Productos/Individual Grazing Box.jpeg"
-        },
-        {
-            id: 4,
-            nombre: "For Every Occasion",
-            categoria: "Tablas",
-            precio: 450,
-            stock: 5,
-            descripcion: `Ideal para darle ese detalle especial a tu persona favorita en cualquier ocasión.
-            Incluye:
-            • Botella de vino tinto.
-            • Caja colgante con una porción pequeña de queso manchego, jamón serrano y fruta.`,
+/* ================= CONFIG ================= */
+const API_PRODUCTOS_URL = "http://localhost:8080/api/productos";
 
-            imagen: "img/Productos/For every ocassion (botella de vino con cajita colgante).png"
-        },
-        {
-            id: 5,
-            nombre: "Tabla básica",
-            categoria: "Tablas",
-            precio: 350,
-            stock: 15,
-            descripcion: `Ideal para una tarde de películas con amigos.
-            Incluye:
-            • Queso manchego.
-            • Jamón serrano.
-            • Fruta de temporada.
-            • Aceitunas.
-            • Galletas integrales.
-            • Mermelada de higos.`,
-            imagen: "img/Productos/Tabla basica.png"
-        },
-        {
-            id: 6,
-            nombre: "Rioja Reserva",
-            categoria: "Vinos",
-            precio: 190,
-            stock: 20,
-            descripcion: "Vino tinto español con crianza en barrica, notas de frutos rojos, vainilla y especias. Ideal para carnes rojas y quesos curados.",
-            imagen: "img/Productos/1.Rioja Reserva (vino tinto).PNG"
-        },
-        {
-            id: 7,
-            nombre: "Ribera del Duero",
-            categoria: "Vinos",
-            precio: 350,
-            stock: 10,
-            descripcion: "Vino tinto robusto de cuerpo medio-alto, con aromas de frutos negros y roble tostado. Perfecto para acompañar cortes y tablas.",
-            imagen: "img/Productos/2. Ribera del Duero (vino tinto).PNG"
-        },
-        {
-            id: 8,
-            nombre: "Chianti Classico",
-            categoria: "Vinos",
-            precio: 450,
-            stock: 9,
-            descripcion: "Vino tinto italiano equilibrado con notas de frutos rojos maduros, hierbas secas y un toque de roble. Ideal con pastas, quesos curados y carnes asadas.",
-            imagen: "img/Productos/3. Chianti Classico (vino tinto).PNG"
-        },
-        {
-            id: 9,
-            nombre: "Albariño",
-            categoria: "Vinos",
-            precio: 145,
-            stock: 25,
-            descripcion: "Vino blanco gallego fresco y aromático, notas cítricas y florales con final mineral. Perfecto para mariscos, pescados y tablas ligeras.",
-            imagen: "img/Productos/4. Albariño (vino blanco).PNG"
-        },
-        {
-            id: 10,
-            nombre: "Sweet Red",
-            categoria: "Vinos",
-            precio: 189,
-            stock: 30,
-            descripcion: "Vino tinto dulce con perfil afrutado y equilibradoDestacan las notas de frutos rojos maduros y un ligero toque floral. Su suavidad lo hace perfecto para maridar con postres o disfrutarlo ligeramente frío.",
-            imagen: "img/Productos/5. Sweet Red (vino dulce).PNG"   
+/* ================= CARGAR PRODUCTOS ================= */
+document.addEventListener("DOMContentLoaded", function () {
+  cargarProductosDesdeBackend();
+});
+
+async function cargarProductosDesdeBackend() {
+  const contenedor = document.getElementById("contenedor-productos");
+
+  if (!contenedor) return;
+
+  try {
+    const response = await fetch(API_PRODUCTOS_URL, {
+      method: "GET"
+    });
+
+    if (!response.ok) {
+      console.error("Error al cargar productos:", response.status);
+      contenedor.innerHTML = "<p>No se pudieron cargar los productos.</p>";
+      return;
+    }
+
+    const productos = await response.json();
+
+    contenedor.innerHTML = "";
+
+    productos.forEach(producto => {
+      const idProducto = producto.id_producto;
+      const nombreCategoria = producto.categoria ? producto.categoria.nombre : "";
+      const imagenProducto = producto.imagen || "";
+
+      const imagenHTML =
+        imagenProducto.includes("http") || imagenProducto.includes("img/")
+          ? `<img src="${imagenProducto}" alt="${producto.nombre}" class="producto-img-media">`
+          : `<div class="img-placeholder">${imagenProducto}</div>`;
+
+      const card = document.createElement("article");
+      card.classList.add("producto-card");
+
+      card.innerHTML = `
+        <div class="producto-img">
+          ${imagenHTML}
+        </div>
+
+        <h4 class="producto-nombre">${producto.nombre}</h4>
+
+        ${nombreCategoria ? `<p class="producto-categoria-tag">${nombreCategoria}</p>` : ""}
+
+        <p class="producto-desc">${producto.descripcion || ""}</p>
+
+        <p class="producto-precio">
+          $${Number(producto.precio).toLocaleString()} MXN
+        </p>
+
+        ${
+          localStorage.getItem("rol") === "administrador"
+            ? `
+              <button onclick="editarProducto(${idProducto})" class="btn-edit">
+                Editar
+              </button>
+
+              <button onclick="eliminarProducto(${idProducto})" class="btn-delete">
+                Eliminar
+              </button>
+            `
+            : ""
         }
-    ];
 
-    /**
-     * 2. PERSISTENCIA DE DATOS
-     * Guardamos el arreglo convertido a STRING en el LocalStorage.
-     * Esto permite que 'index.js' pueda leerlo aunque estemos en archivos diferentes.
-     */
-    localStorage.setItem("productos", JSON.stringify(productos));
+        <button class="btn-comprar" onclick="agregarAlCarrito(${idProducto})">
+          Agregar al carrito
+        </button>
+      `;
 
-    // Mensaje de control para la consola (puedes borrarlo después)
-    console.log("Productos cargados exitosamente en LocalStorage.");
+      contenedor.appendChild(card);
+    });
+
+  } catch (error) {
+    console.error("Error de conexión al cargar productos:", error);
+    contenedor.innerHTML = "<p>Error de conexión con el backend.</p>";
+  }
+}
+
+/* ================= AGREGAR AL CARRITO ================= */
+async function agregarAlCarrito(idProducto) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    alert("Debes iniciar sesión para agregar productos al carrito.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:8080/api/carrito/agregar/${idProducto}`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      console.error("Error al agregar producto:", response.status);
+      alert("No se pudo agregar el producto al carrito.");
+      return;
+    }
+
+    alert("Producto agregado al carrito 🛒");
+
+  } catch (error) {
+    console.error("Error de conexión al agregar producto:", error);
+    alert("Error de conexión con el backend.");
+  }
 }

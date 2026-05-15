@@ -2046,3 +2046,44 @@ ESTILO PARA FORMULARIO ADMIN*/
   overflow: hidden;
   margin-top: 60px; /* Esto es para que no se tape con el header */
 }
+/* Contenedor principal */
+.equipo-grid {
+  display: flex;
+  flex-wrap: wrap;       /* Permite que las tarjetas bajen a la siguiente fila */
+  justify-content: center; /* Centra las 4 tarjetas de abajo */
+  gap: 20px;               /* Espacio entre tarjetas */
+  max-width: 1200px;       /* Ajusta según el ancho de tu página */
+  margin: 0 auto;          /* Centra todo el bloque en la pantalla */
+}
+
+/* Contenedor principal */
+.equipo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Mantiene el centrado por si acaso */
+  gap: 30px;               /* Un poco más de espacio se ve mejor en grupos de 3 */
+  max-width: 1100px; 
+  margin: 0 auto;
+}
+
+/* Ajuste para 3 columnas exactas */
+.team-card {
+  /* 33.33% es el total, restamos el gap para que entren 3 por fila */
+  flex: 0 1 calc(33.33% - 20px); 
+  min-width: 280px; /* Para que no se vean muy flacas */
+  box-sizing: border-box;
+}
+
+/* Ajuste para tablets/laptops pequeños (opcional) */
+@media (max-width: 992px) {
+  .team-card {
+    flex: 0 1 calc(50% - 20px); /* 2 por fila en pantallas medianas */
+  }
+}
+
+/* Ajuste para celulares */
+@media (max-width: 600px) {
+  .team-card {
+    flex: 0 1 100%; /* 1 por fila en móvil */
+  }
+}

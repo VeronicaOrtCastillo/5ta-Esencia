@@ -1,78 +1,147 @@
-const passInput = document.getElementById('regPass');
-const passStrength = document.getElementById('passStrength');
+/* REGISTRO - CONEXIÓN CON BACKEND */
 
-// 1. Escuchador para indicar la seguridad de la contraseña
-passInput.addEventListener('input', function() {
-    const val = passInput.value;
-    let mensaje = "";
-    let color = "";
+document.addEventListener("DOMContentLoaded", function () {
+  const API_BASE_URL = "http://localhost:8080";
 
-    if (val.length === 0) {
+  // ================= MENÚ HAMBURGUESA =================
+  const toggle = document.getElementById("menu-toggle");
+  const nav = document.getElementById("nav");
+
+  if (toggle && nav) {
+    toggle.addEventListener("click", function () {
+      nav.classList.toggle("active");
+    });
+  }
+
+  // ================= ELEMENTOS REGISTRO =================
+  const registroForm = document.getElementById("registroForm");
+  const passInput = document.getElementById("regPass");
+  const passStrength = document.getElementById("passStrength");
+  const regAlert = document.getElementById("regAlert");
+
+  if (passInput && passStrength) {
+    passInput.addEventListener("input", function () {
+      const val = passInput.value;
+      let mensaje = "";
+      let color = "";
+
+      if (val.length === 0) {
         mensaje = "";
-    } else if (val.length < 6) {
+      } else if (val.length < 6) {
         mensaje = "Muy corta";
         color = "red";
-    } else if (val.match(/[A-Z]/) && val.match(/[0-9]/) && val.match(/[^A-Za-z0-9]/)) {
+      } else if (val.match(/[A-Z]/) && val.match(/[0-9]/) && val.match(/[^A-Za-z0-9]/)) {
         mensaje = "Seguridad Alta (Fuerte)";
         color = "green";
-    } else if (val.match(/[A-Z]/) || val.match(/[0-9]/)) {
+      } else if (val.match(/[A-Z]/) || val.match(/[0-9]/)) {
         mensaje = "Seguridad Media";
         color = "orange";
-    } else {
+      } else {
         mensaje = "Seguridad Baja";
-        color = "#d4af37"; // Dorado de la marca
-    }
+        color = "#d4af37";
+      }
 
-    passStrength.textContent = mensaje;
-    passStrength.style.color = color;
-});
+      passStrength.textContent = mensaje;
+      passStrength.style.color = color;
+    });
+  }
 
-// 2. Validación del formulario al enviar
-document.getElementById('registroForm').addEventListener('submit', function(e) {
+  if (!registroForm) return;
+
+  registroForm.addEventListener("submit", async function (e) {
     e.preventDefault();
-    
-    const form = e.target;
-    const nombre = document.getElementById('regNombre');
-    const telefono = document.getElementById('regTelefono');
-    const pass = document.getElementById('regPass');
-    const confirmPass = document.getElementById('regPassConfirm');
 
-    // Validación manual de coincidencia de contraseñas
-    if (pass.value !== confirmPass.value) {
-        confirmPass.setCustomValidity("No coincide");
+    const form = e.target;
+
+    const nombreCompletoInput = document.getElementById("regNombre");
+    const telefonoInput = document.getElementById("regTelefono");
+    const emailInput = document.getElementById("regEmail");
+    const passInput = document.getElementById("regPass");
+    const confirmPassInput = document.getElementById("regPassConfirm");
+
+    const nombreCompleto = nombreCompletoInput.value.trim();
+    const telefono = telefonoInput.value.trim();
+    const correo = emailInput.value.trim();
+    const contrasena = passInput.value.trim();
+    const confirmPass = confirmPassInput.value.trim();
+
+    if (contrasena !== confirmPass) {
+      confirmPassInput.setCustomValidity("No coincide");
     } else {
-        confirmPass.setCustomValidity("");
+      confirmPassInput.setCustomValidity("");
     }
 
-    // Validar que el teléfono sea solo números (por si pegan texto)
-    if (!/^\d{10}$/.test(telefono.value)) {
-        telefono.setCustomValidity("Inválido");
+    if (!/^\d{10}$/.test(telefono)) {
+      telefonoInput.setCustomValidity("Inválido");
     } else {
-        telefono.setCustomValidity("");
+      telefonoInput.setCustomValidity("");
     }
 
     if (!form.checkValidity()) {
-        e.stopPropagation();
-        form.classList.add('was-validated');
-        return;
+      e.stopPropagation();
+      form.classList.add("was-validated");
+      return;
     }
 
-    // Crear el objeto JSON una vez validado
-    const nuevoUsuario = {
-        nombreCompleto: nombre.value,
-        telefono: telefono.value,
-        email: document.getElementById('regEmail').value,
-        contrasena: pass.value
-    };
+    const partesNombre = nombreCompleto.split(" ");
+    const nombre = partesNombre[0];
+    const apellido = partesNombre.slice(1).join(" ") || "Sin apellido";
 
-    // Persistencia en LocalStorage
-    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [
-        { email: "admin@5taesencia.com", pass: "123456", nombre: "Victor Admin" }
-    ];
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nombre: nombre,
+          apellido: apellido,
+          correo: correo,
+          telefono: telefono,
+          contrasena: contrasena
+        })
+      });
 
-    usuarios.push(nuevoUsuario);
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+      if (!response.ok) {
+        if (regAlert) {
+          regAlert.innerHTML = `
+            <div class="alert alert-danger">
+              No se pudo registrar el usuario. Revisa si el correo o teléfono ya existen.
+            </div>
+          `;
+        } else {
+          alert("No se pudo registrar el usuario.");
+        }
 
-    alert("Usuario registrado con éxito.");
-    window.location.href = "login.html";
+        return;
+      }
+
+      if (regAlert) {
+        regAlert.innerHTML = `
+          <div class="alert alert-success">
+            Usuario registrado con éxito. Redirigiendo al login...
+          </div>
+        `;
+      } else {
+        alert("Usuario registrado con éxito.");
+      }
+
+      setTimeout(function () {
+        window.location.href = "login.html";
+      }, 1000);
+
+    } catch (error) {
+      console.error("Error en registro:", error);
+
+      if (regAlert) {
+        regAlert.innerHTML = `
+          <div class="alert alert-danger">
+            Error de conexión con el servidor.
+          </div>
+        `;
+      } else {
+        alert("Error de conexión con el servidor.");
+      }
+    }
+  });
 });
