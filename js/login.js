@@ -1,66 +1,60 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. INICIALIZACIÓN: Usuarios de prueba si el localStorage está vacío
-    if (!localStorage.getItem("usuarios")) {
-        const usuariosSemilla = [
-            { 
-                email: "admin@5taesencia.com", 
-                contrasena: "123456", 
-                nombreCompleto: "Victor Admin" 
-            },
-            { 
-                email: "test@correo.com", 
-                contrasena: "password123", 
-                nombreCompleto: "Usuario Prueba" 
-            }
-        ];
-        localStorage.setItem("usuarios", JSON.stringify(usuariosSemilla));
+  const API_URL = "http://localhost:8080";
+
+  const loginForm = document.getElementById('loginForm');
+  const loginStatus = document.getElementById('loginStatus');
+  const emailInput = document.getElementById('login-email');
+  const passInput = document.getElementById('login-password');
+
+  if (!loginForm) return;
+
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    loginStatus.textContent = "";
+    loginStatus.style.color = "red";
+
+    const correo = emailInput.value.trim();
+    const contrasena = passInput.value.trim();
+
+    if (correo === "" || contrasena === "") {
+      loginStatus.textContent = "Correo y contraseña son obligatorios.";
+      return;
     }
 
-    // 2. REFERENCIAS AL DOM (Basadas en tu login.html)
-    const loginForm = document.getElementById('loginForm');
-    const loginStatus = document.getElementById('loginStatus');
-    const emailInput = document.getElementById('login-email');
-    const passInput = document.getElementById('login-password');
+    try {
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          correo: correo,
+          contrasena: contrasena
+        })
+      });
 
-    // 3. EVENTO DE ENVÍO
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+      if (!response.ok) {
+        loginStatus.textContent = "Correo o contraseña incorrectos.";
+        return;
+      }
 
-        // Limpiar estados previos
-        loginStatus.textContent = "";
-        loginStatus.style.color = "red";
+      const data = await response.json();
 
-        const email = emailInput.value.trim();
-        const pass = passInput.value.trim();
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("correo", data.correo);
+      localStorage.setItem("rol", data.rol);
 
-        // VALIDACIÓN: Campos vacíos
-        if (email === "" || pass === "") {
-            loginStatus.textContent = "Error: Nombre de usuario y contraseña son obligatorios.";
-            return;
-        }
+      loginStatus.style.color = "green";
+      loginStatus.textContent = "Inicio de sesión exitoso. Redirigiendo...";
 
-        // 4. AUTENTICACIÓN
-        const usuariosRegistrados = JSON.parse(localStorage.getItem("usuarios")) || [];
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 1000);
 
-        // Buscamos coincidencia (soporta 'contrasena' de registro.js y 'pass' de pruebas)
-        const usuarioValido = usuariosRegistrados.find(user => 
-            user.email === email && (user.contrasena === pass || user.pass === pass)
-        );
-
-        if (usuarioValido) {
-            // ÉXITO
-            loginStatus.style.color = "green";
-            loginStatus.textContent = `¡Bienvenido, ${usuarioValido.nombreCompleto || usuarioValido.nombre}! Redirigiendo...`;
-            
-            // Almacenar sesión activa
-            sessionStorage.setItem("usuarioActivo", JSON.stringify(usuarioValido));
-
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 1500);
-        } else {
-            // VALIDACIÓN: Datos inválidos
-            loginStatus.textContent = "Nombre de usuario o contraseña inválidos.";
-        }
-    });
+    } catch (error) {
+      console.error("Error en login:", error);
+      loginStatus.textContent = "Error de conexión con el servidor.";
+    }
+  });
 });

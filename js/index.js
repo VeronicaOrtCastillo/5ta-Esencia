@@ -1,246 +1,93 @@
 /* SCRIPT GENERAL - 5ta Esencia */
 
-/* ==== OBTENER INFORMACION DEL USUSARIO ====*/
-/*
-  Recuperamos el usuario guardado en LocalStorage.
-  Cuando el backend haga login correctamente,
-  guardaremos ahí los datos del usuario.
-*/
-const usuario = JSON.parse(localStorage.getItem("usuario"));
+/* ================= CONFIG BACKEND ================= */
+const API_BASE_URL = "http://localhost:8080";
+const API_URL = `${API_BASE_URL}/api`;
+const AUTH_URL = `${API_BASE_URL}/auth`;
 
-/*
-  Verificamos si el usuario tiene rol ADMINISTRADOR.
+/* ================= SESIÓN ================= */
+function obtenerToken() {
+  return localStorage.getItem("token");
+}
 
-  El operador ?. evita errores si usuario es null.
+function obtenerCorreo() {
+  return localStorage.getItem("correo");
+}
 
-  Si el rol es "ADMINISTRADOR":
-      esAdmin = true
+function obtenerRol() {
+  return localStorage.getItem("rol");
+}
+function cerrarSesion() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("correo");
+  localStorage.removeItem("rol");
 
-  Si el rol es "USUARIO" o no existe:
-      esAdmin = false
-*/
-const esAdmin = usuario?.rol === "ADMINISTRADOR";
+  alert("Sesión cerrada correctamente.");
+  window.location.href = "login.html";
+}
 
-document.addEventListener('DOMContentLoaded', function () {
+function esAdministrador() {
+  return obtenerRol() === "administrador";
+}
 
-  //================= ADMIN CONTROLS =================
-  const panelAdmin = document.getElementById("admin-panel"); 
-  const adminControls = document.getElementById("admin-controls"); 
+function headersAuth() {
+  const token = obtenerToken();
 
-  /*
-  Si el usuario es administrador:
-  mostramos los controles del panel admin.
-  */
-  if (esAdmin) {
-  
-    if (adminControls) {
-      adminControls.style.display = "block";
-    }
-  
-  } else {
-  
-    /*
-      Si NO es administrador:
-      ocultamos completamente:
-        - botón agregar producto
-        - panel administrador
-    */
-  
-    if (adminControls) {
-      adminControls.style.display = "none";
-    }
-  
-    if (panelAdmin) {
-      panelAdmin.style.display = "none";
-    }
-  }
-  
-  // ================= PRODUCTOS =================
-  const contenedor = document.getElementById('contenedor-productos');
-  const productosLocal = JSON.parse(localStorage.getItem("productos"));
+  return {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`
+  };
+}
 
-  if (contenedor && productosLocal) {
-    contenedor.innerHTML = "";
+/* ================= DOM CONTENT LOADED ================= */
+document.addEventListener("DOMContentLoaded", function () {
 
-    productosLocal.forEach(item => {
-      const card = document.createElement('article');
-      card.classList.add('producto-card');
+  actualizarMenuSesion();
 
-      const esRutaImagen = item.imagen.includes('img/') || item.imagen.includes('http');
-      
-      const contenidoImagen = esRutaImagen
-        ? `<img src="${item.imagen}" alt="${item.nombre}" class="producto-img-media">`
-        : item.imagen;
+  // ================= ADMIN CONTROLS =================
+  const panelAdmin = document.getElementById("admin-panel");
+  const adminControls = document.getElementById("admin-controls");
 
-      card.innerHTML = `
-        <div class="producto-img">${contenidoImagen}</div>
-        <h4 class="producto-nombre">${item.nombre}</h4>
-        ${item.categoria ? `<p class="producto-categoria-tag">${item.categoria}</p>` : ''}
-        <p class="producto-desc">${item.descripcion}</p>
-        <p class="producto-precio">$${item.precio.toLocaleString()} MXN</p>
-
-        ${esAdmin ? `
-          <button onclick="editarProducto(${item.id})" class="btn-edit">Editar</button>
-          <button onclick="eliminarProducto(${item.id})" class="btn-delete">Eliminar</button>
-        ` : ""}
-
-        <button class="btn-comprar" onclick="agregarAlCarrito(${item.id})">
-          Agregar al carrito
-        </button>
-      `;
-
-      contenedor.appendChild(card);
-    });
+  if (adminControls) {
+    adminControls.style.display = esAdministrador() ? "block" : "none";
   }
 
-    // =================MOSTRAR CARRITO =================
-
-  const contenedorCarrito = document.getElementById("contenedor-carrito");
-
-  if (contenedorCarrito) {
-
-    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-    if (carrito.length === 0) {
-
-      contenedorCarrito.innerHTML = "<p>Tu carrito está vacío 🛒</p>";
-
-    } else {
-
-      contenedorCarrito.innerHTML = "";
-
-      carrito.forEach(item => {
-
-        const esRutaImagen = item.imagen && (item.imagen.includes('img/') || item.imagen.includes('http'));
-
-        const imagen = esRutaImagen
-
-          ? `<img src="${item.imagen}" alt="${item.nombre}">`
-
-          : `<div class="img-placeholder">${item.imagen}</div>`;
-
-        const card = document.createElement("div");
-
-        card.classList.add("carrito-item");
-
-        card.innerHTML = `
-
-          <div class="carrito-img">
-
-            ${imagen}
-
-          </div>
-
-          <div class="carrito-info">
-
-            <h4>${item.nombre}</h4>
-
-            <p>${item.descripcion || ""}</p>
-
-            <p class="precio">$${item.precio} MXN</p>
-
-          </div>
-
-          <div class="carrito-controles">
-
-            <button onclick="cambiarCantidad(${item.id}, -1)">−</button>
-
-            <span>${item.cantidad}</span>
-
-            <button onclick="cambiarCantidad(${item.id}, 1)">+</button>
-
-            <button class="btn-delete" onclick="eliminarDelCarrito(${item.id})">
-
-              ✕
-
-            </button>
-
-          </div>
-
-        `;
-        contenedorCarrito.appendChild(card);
-      });
-      //TOTAL
-
-      const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
-
-      const totalHTML = document.createElement("div");
-
-      totalHTML.classList.add("carrito-total");
-
-      totalHTML.innerHTML = `
-
-        <h3>Total: $${total} MXN</h3>
-
-        <button class="btn-pagar" onclick="finalizarCompra()">
-
-          Finalizar compra
-
-        </button>
-
-      `;
-      contenedorCarrito.appendChild(totalHTML);
-
-    }
-
+  if (panelAdmin) {
+    panelAdmin.style.display = "none";
   }
 
-  // ================= FORMULARIO ADMIN (CRUD) =================
+  // ================= FORMULARIO ADMIN PRODUCTOS =================
   const formProducto = document.getElementById("formProducto");
-  
+
   if (formProducto) {
-    formProducto.addEventListener("submit", function(e) {
-      e.preventDefault();
-      
-      let productos = JSON.parse(localStorage.getItem("productos")) || [];
-      const id = document.getElementById("producto-id").value;
-      
-      const nuevoProducto = {
-        id: id ? Number(id) : Date.now(),
-        nombre: document.getElementById("nombre").value,
-        precio: Number(document.getElementById("precio").value),
-        categoria: document.getElementById("categoria").value,
-        descripcion: document.getElementById("descripcion").value,
-        imagen: document.getElementById("imagen").value,
-      };
-
-      if (id) {
-        productos = productos.map(p => p.id == id ? nuevoProducto : p);
-        mostrarAlerta("Producto actualizado", "success");
-      } else {
-        productos.push(nuevoProducto);
-        mostrarAlerta("Producto agregado", "success");
-      }
-
-      localStorage.setItem("productos", JSON.stringify(productos));
-      formProducto.reset();
-      document.getElementById("producto-id").value = "";
-      
-      setTimeout(() => location.reload(), 1000);
-    });
+    formProducto.addEventListener("submit", guardarProductoDesdeAdmin);
   }
 
-  // --- 2. FORMULARIO DE CONTACTO ---
-  var form = document.getElementById('contactForm');
-  var btnSubmit = document.getElementById('btnSubmit');
-  var formStatus = document.getElementById('formStatus');
+  // ================= MOSTRAR CARRITO DESDE BACKEND =================
+  cargarCarritoDesdeBackend();
+
+  // ================= FORMULARIO DE CONTACTO =================
+  const form = document.getElementById("contactForm");
+  const btnSubmit = document.getElementById("btnSubmit");
+  const formStatus = document.getElementById("formStatus");
 
   if (form) {
-    form.addEventListener('submit', function (e) {
+    form.addEventListener("submit", async function (e) {
       e.preventDefault();
 
       clearErrors();
-      if(formStatus) {
-        formStatus.textContent = '';
-        formStatus.className = 'form-status';
+
+      if (formStatus) {
+        formStatus.textContent = "";
+        formStatus.className = "form-status";
       }
 
-      var nombre = document.getElementById('nombre').value.trim();
-      var email = document.getElementById('email').value.trim();
-      var telefono = document.getElementById('telefono').value.trim();
-      var mensaje = document.getElementById('mensaje').value.trim();
+      const nombre = document.getElementById("nombre").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const telefono = document.getElementById("telefono").value.trim();
+      const mensaje = document.getElementById("mensaje").value.trim();
 
-      var isValid = true;
+      let isValid = true;
 
       if (!validateNombre(nombre)) isValid = false;
       if (!validateEmail(email)) isValid = false;
@@ -249,40 +96,58 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (!isValid) return;
 
-      btnSubmit.disabled = true;
-      btnSubmit.textContent = 'Enviando...';
+      if (btnSubmit) {
+        btnSubmit.disabled = true;
+        btnSubmit.textContent = "Enviando...";
+      }
 
-      var formData = new FormData(form);
+      try {
+        const response = await fetch(`${API_URL}/contactos`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            nombre: nombre,
+            correo: email,
+            mensaje: `Teléfono: ${telefono}\n\n${mensaje}`
+          })
+        });
 
-      fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      })
-      .then(function (response) {
         if (response.ok) {
-          formStatus.textContent = '¡Mensaje enviado con éxito!';
-          formStatus.className = 'form-status success';
+          if (formStatus) {
+            formStatus.textContent = "¡Mensaje enviado con éxito!";
+            formStatus.className = "form-status success";
+          }
+
           form.reset();
         } else {
-          formStatus.textContent = 'Error al enviar.';
-          formStatus.className = 'form-status error';
+          if (formStatus) {
+            formStatus.textContent = "Error al enviar.";
+            formStatus.className = "form-status error";
+          }
         }
-      })
-      .catch(function () {
-        formStatus.textContent = 'Error de conexión.';
-        formStatus.className = 'form-status error';
-      })
-      .finally(function () {
-        btnSubmit.disabled = false;
-        btnSubmit.textContent = 'Enviar mensaje';
-      });
+
+      } catch (error) {
+        console.error("Error de conexión:", error);
+
+        if (formStatus) {
+          formStatus.textContent = "Error de conexión.";
+          formStatus.className = "form-status error";
+        }
+
+      } finally {
+        if (btnSubmit) {
+          btnSubmit.disabled = false;
+          btnSubmit.textContent = "Enviar mensaje";
+        }
+      }
     });
   }
 
-  // --- 3. MENÚ HAMBURGUESA ---
-  var toggle = document.getElementById("menu-toggle");
-  var nav = document.getElementById("nav");
+  // ================= MENÚ HAMBURGUESA =================
+  const toggle = document.getElementById("menu-toggle");
+  const nav = document.getElementById("nav");
 
   if (toggle && nav) {
     toggle.addEventListener("click", function () {
@@ -290,161 +155,417 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // --- 4. FORMULARIO DE LOGIN ---
-  var loginForm = document.getElementById('loginForm');
-  var loginStatus = document.getElementById('loginStatus');
-
-  if (loginForm) {
-    loginForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      clearErrors();
-      if (loginStatus) {
-        loginStatus.textContent = '';
-        loginStatus.className = 'form-status';
-      }
-
-      var emailEl = document.getElementById('login-email');
-      var passEl = document.getElementById('login-password');
-      var emailErr = document.getElementById('error-login-email');
-      var passErr = document.getElementById('error-login-password');
-
-      var email = emailEl.value.trim();
-      var pass = passEl.value;
-      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-      var isValid = true;
-      if (!emailRegex.test(email)) {
-        showError(emailEl, emailErr, 'Correo inválido');
-        isValid = false;
-      }
-      if (pass.length < 6) {
-        showError(passEl, passErr, 'Mínimo 6 caracteres');
-        isValid = false;
-      }
-      if (!isValid) return;
-
-      // Sin backend aún: solo feedback visual
-      if (loginStatus) {
-        loginStatus.textContent = 'Autenticación en desarrollo. Pronto disponible.';
-        loginStatus.className = 'form-status success';
-      }
-    });
-  }
-
-  // 🔥 NUEVO: INICIAR CARRUSEL AL CARGAR
+  // ================= CARRUSEL =================
   iniciarCarrusel();
-
 });
 
-/* ================= 🛒 FUNCIÓN MODIFICADA ================= */
-function agregarAlCarrito(id) {
-  //Obtener productos
-  const productos = JSON.parse(localStorage.getItem("productos")) || [];
-  //Buscar producto
-  const producto = productos.find(p => p.id === id)
-  if (!producto) {
-    alert("Producto no encontrado");
+/* ================= PRODUCTOS ADMIN BACKEND ================= */
+
+async function guardarProductoDesdeAdmin(e) {
+  e.preventDefault();
+
+  const token = obtenerToken();
+
+  if (!token || !esAdministrador()) {
+    mostrarAlerta("Debes iniciar sesión como administrador.", "danger");
     return;
   }
-  //Obtener carrito o crear uno
-  let carrito = JSON.parse(localStorage.getItem("carrito")) || []
-  //Validar si ya existe
-  const existe = carrito.find(p => p.id === id)
-  if (existe) {
-    existe.cantidad += 1; // suma cantidad
-  } else {
-    carrito.push({ ...producto, cantidad: 1 });
+
+  const id = document.getElementById("producto-id").value;
+  const nombre = document.getElementById("nombre").value.trim();
+  const precio = Number(document.getElementById("precio").value);
+  const categoriaNombre = document.getElementById("categoria").value.trim();
+  const imagen = document.getElementById("imagen").value.trim();
+  const descripcion = document.getElementById("descripcion").value.trim();
+
+  if (!nombre || !precio || !categoriaNombre || !descripcion) {
+    mostrarAlerta("Completa nombre, precio, categoría y descripción.", "danger");
+    return;
   }
-  //Guardar en LocalStorage
-  localStorage.setItem("carrito", JSON.stringify(carrito))
-  alert("Producto agregado al carrito 🛒");
+
+  try {
+    const categoria = await obtenerOCrearCategoria(categoriaNombre);
+
+    const producto = {
+      nombre: nombre,
+      descripcion: descripcion,
+      precio: precio,
+      stock: 10,
+      imagen: imagen,
+      categoria: categoria
+    };
+
+    const url = id
+      ? `${API_URL}/productos/${id}`
+      : `${API_URL}/productos`;
+
+    const metodo = id ? "PUT" : "POST";
+
+    const response = await fetch(url, {
+      method: metodo,
+      headers: headersAuth(),
+      body: JSON.stringify(producto)
+    });
+
+    if (!response.ok) {
+      console.error("Error al guardar producto:", response.status);
+      mostrarAlerta("No se pudo guardar el producto.", "danger");
+      return;
+    }
+
+    mostrarAlerta(id ? "Producto actualizado" : "Producto agregado", "success");
+
+    document.getElementById("formProducto").reset();
+    document.getElementById("producto-id").value = "";
+
+    const panel = document.getElementById("admin-panel");
+    if (panel) panel.style.display = "none";
+
+    if (typeof cargarProductosDesdeBackend === "function") {
+      cargarProductosDesdeBackend();
+    }
+
+  } catch (error) {
+    console.error("Error al guardar producto:", error);
+    mostrarAlerta("Error de conexión con el backend.", "danger");
+  }
 }
 
-/* =================  FUNCIÓN DEL CARRUSEL ================= */
+async function obtenerOCrearCategoria(nombreCategoria) {
+  const responseCategorias = await fetch(`${API_URL}/categorias`);
+  const categorias = await responseCategorias.json();
+
+  const categoriaExistente = categorias.find(c =>
+    c.nombre.toLowerCase() === nombreCategoria.toLowerCase()
+  );
+
+  if (categoriaExistente) {
+    return categoriaExistente;
+  }
+
+  const responseNuevaCategoria = await fetch(`${API_URL}/categorias`, {
+    method: "POST",
+    headers: headersAuth(),
+    body: JSON.stringify({
+      nombre: nombreCategoria
+    })
+  });
+
+  if (!responseNuevaCategoria.ok) {
+    throw new Error("No se pudo crear la categoría");
+  }
+
+  return await responseNuevaCategoria.json();
+}
+
+async function editarProducto(idProducto) {
+  const token = obtenerToken();
+
+  if (!token || !esAdministrador()) {
+    mostrarAlerta("Debes iniciar sesión como administrador.", "danger");
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/productos/${idProducto}`);
+
+    if (!response.ok) {
+      mostrarAlerta("No se pudo cargar el producto.", "danger");
+      return;
+    }
+
+    const producto = await response.json();
+
+    document.getElementById("producto-id").value = producto.id_producto;
+    document.getElementById("nombre").value = producto.nombre;
+    document.getElementById("precio").value = producto.precio;
+    document.getElementById("categoria").value = producto.categoria ? producto.categoria.nombre : "";
+    document.getElementById("imagen").value = producto.imagen || "";
+    document.getElementById("descripcion").value = producto.descripcion || "";
+
+    const panel = document.getElementById("admin-panel");
+
+    if (panel) {
+      panel.style.display = "block";
+      window.scrollTo({ top: panel.offsetTop, behavior: "smooth" });
+    }
+
+  } catch (error) {
+    console.error("Error al editar producto:", error);
+    mostrarAlerta("Error de conexión con el backend.", "danger");
+  }
+}
+
+async function eliminarProducto(idProducto) {
+  const token = obtenerToken();
+
+  if (!token || !esAdministrador()) {
+    mostrarAlerta("Debes iniciar sesión como administrador.", "danger");
+    return;
+  }
+
+  const confirmar = confirm("¿Seguro que deseas eliminar este producto?");
+
+  if (!confirmar) return;
+
+  try {
+    const response = await fetch(`${API_URL}/productos/${idProducto}`, {
+      method: "DELETE",
+      headers: headersAuth()
+    });
+
+    if (!response.ok) {
+      console.error("Error al eliminar producto:", response.status);
+      mostrarAlerta("No se pudo eliminar el producto.", "danger");
+      return;
+    }
+
+    mostrarAlerta("Producto eliminado", "danger");
+
+    if (typeof cargarProductosDesdeBackend === "function") {
+      cargarProductosDesdeBackend();
+    }
+
+  } catch (error) {
+    console.error("Error al eliminar producto:", error);
+    mostrarAlerta("Error de conexión con el backend.", "danger");
+  }
+}
+
+/* ================= CARRITO BACKEND ================= */
+
+/* ================= PRODUCTOS ADMIN BACKEND ================= */
+
+async function guardarProductoDesdeAdmin(e) {
+  e.preventDefault();
+
+  const token = obtenerToken();
+
+  if (!token) {
+    mostrarAlerta("Debes iniciar sesión como administrador.", "danger");
+    return;
+  }
+
+  if (!esAdministrador()) {
+    mostrarAlerta("Tu usuario no tiene permisos de administrador.", "danger");
+    return;
+  }
+
+  const id = document.getElementById("producto-id").value;
+  const nombre = document.getElementById("nombre").value.trim();
+  const precio = Number(document.getElementById("precio").value);
+  const categoriaNombre = document.getElementById("categoria").value.trim();
+  const imagen = document.getElementById("imagen").value.trim();
+  const descripcion = document.getElementById("descripcion").value.trim();
+
+  if (!nombre || !precio || !categoriaNombre || !descripcion) {
+    mostrarAlerta("Completa nombre, precio, categoría y descripción.", "danger");
+    return;
+  }
+
+  try {
+    const categoria = await obtenerOCrearCategoria(categoriaNombre);
+
+    const producto = {
+      nombre: nombre,
+      descripcion: descripcion,
+      precio: precio,
+      stock: 10,
+      imagen: imagen,
+      categoria: {
+        id_categoria: categoria.id_categoria,
+        nombre: categoria.nombre
+      }
+    };
+
+    const url = id
+      ? `${API_URL}/productos/${id}`
+      : `${API_URL}/productos`;
+
+    const metodo = id ? "PUT" : "POST";
+
+    console.log("Producto a guardar:", producto);
+    console.log("URL:", url);
+    console.log("Método:", metodo);
+    console.log("Rol:", obtenerRol());
+
+    const response = await fetch(url, {
+      method: metodo,
+      headers: headersAuth(),
+      body: JSON.stringify(producto)
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Error al guardar producto:", response.status, errorText);
+      mostrarAlerta(`No se pudo guardar el producto. Error ${response.status}`, "danger");
+      return;
+    }
+
+    mostrarAlerta(id ? "Producto actualizado" : "Producto agregado", "success");
+
+    document.getElementById("formProducto").reset();
+    document.getElementById("producto-id").value = "";
+
+    const panel = document.getElementById("admin-panel");
+    if (panel) panel.style.display = "none";
+
+    if (typeof cargarProductosDesdeBackend === "function") {
+      cargarProductosDesdeBackend();
+    }
+
+  } catch (error) {
+    console.error("Error al guardar producto:", error);
+    mostrarAlerta(error.message || "Error de conexión con el backend.", "danger");
+  }
+}
+
+async function obtenerOCrearCategoria(nombreCategoria) {
+  const responseCategorias = await fetch(`${API_URL}/categorias`, {
+    method: "GET"
+  });
+
+  if (!responseCategorias.ok) {
+    const errorText = await responseCategorias.text();
+    console.error("Error al obtener categorías:", responseCategorias.status, errorText);
+    throw new Error("No se pudieron cargar las categorías.");
+  }
+
+  const categorias = await responseCategorias.json();
+
+  const categoriaExistente = categorias.find(c =>
+    c.nombre.toLowerCase() === nombreCategoria.toLowerCase()
+  );
+
+  if (categoriaExistente) {
+    return categoriaExistente;
+  }
+
+  const responseNuevaCategoria = await fetch(`${API_URL}/categorias`, {
+    method: "POST",
+    headers: headersAuth(),
+    body: JSON.stringify({
+      nombre: nombreCategoria
+    })
+  });
+
+  if (!responseNuevaCategoria.ok) {
+    const errorText = await responseNuevaCategoria.text();
+    console.error("Error al crear categoría:", responseNuevaCategoria.status, errorText);
+    throw new Error(`No se pudo crear la categoría. Error ${responseNuevaCategoria.status}`);
+  }
+
+  return await responseNuevaCategoria.json();
+}
+
+async function editarProducto(idProducto) {
+  const token = obtenerToken();
+
+  if (!token) {
+    mostrarAlerta("Debes iniciar sesión como administrador.", "danger");
+    return;
+  }
+
+  if (!esAdministrador()) {
+    mostrarAlerta("Tu usuario no tiene permisos de administrador.", "danger");
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/productos/${idProducto}`, {
+      method: "GET"
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Error al cargar producto:", response.status, errorText);
+      mostrarAlerta(`No se pudo cargar el producto. Error ${response.status}`, "danger");
+      return;
+    }
+
+    const producto = await response.json();
+
+    document.getElementById("producto-id").value = producto.id_producto;
+    document.getElementById("nombre").value = producto.nombre;
+    document.getElementById("precio").value = producto.precio;
+    document.getElementById("categoria").value = producto.categoria ? producto.categoria.nombre : "";
+    document.getElementById("imagen").value = producto.imagen || "";
+    document.getElementById("descripcion").value = producto.descripcion || "";
+
+    const panel = document.getElementById("admin-panel");
+
+    if (panel) {
+      panel.style.display = "block";
+      window.scrollTo({ top: panel.offsetTop, behavior: "smooth" });
+    }
+
+  } catch (error) {
+    console.error("Error al editar producto:", error);
+    mostrarAlerta("Error de conexión con el backend.", "danger");
+  }
+}
+
+async function eliminarProducto(idProducto) {
+  const token = obtenerToken();
+
+  if (!token) {
+    mostrarAlerta("Debes iniciar sesión como administrador.", "danger");
+    return;
+  }
+
+  if (!esAdministrador()) {
+    mostrarAlerta("Tu usuario no tiene permisos de administrador.", "danger");
+    return;
+  }
+
+  const confirmar = confirm("¿Seguro que deseas eliminar este producto?");
+
+  if (!confirmar) return;
+
+  try {
+    console.log("Eliminando producto:", idProducto);
+    console.log("Rol:", obtenerRol());
+
+    const response = await fetch(`${API_URL}/productos/${idProducto}`, {
+      method: "DELETE",
+      headers: headersAuth()
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Error al eliminar producto:", response.status, errorText);
+      mostrarAlerta(`No se pudo eliminar el producto. Error ${response.status}`, "danger");
+      return;
+    }
+
+    mostrarAlerta("Producto eliminado", "danger");
+
+    if (typeof cargarProductosDesdeBackend === "function") {
+      cargarProductosDesdeBackend();
+    }
+
+  } catch (error) {
+    console.error("Error al eliminar producto:", error);
+    mostrarAlerta("Error de conexión con el backend.", "danger");
+  }
+}
+
+
+/* ================= CARRUSEL ================= */
+
 function iniciarCarrusel() {
-  const slides = document.querySelectorAll('.carousel-slide');
+  const slides = document.querySelectorAll(".carousel-slide");
   let currentSlide = 0;
 
   if (slides.length === 0) return;
 
   setInterval(() => {
-    slides[currentSlide].classList.remove('active');
+    slides[currentSlide].classList.remove("active");
     currentSlide = (currentSlide + 1) % slides.length;
-    slides[currentSlide].classList.add('active');
-  }, 4000); 
+    slides[currentSlide].classList.add("active");
+  }, 4000);
 }
 
-// --- FUNCIONES ADMIN ---
-function eliminarProducto(id) {
-  let productos = JSON.parse(localStorage.getItem("productos"));
-  productos = productos.filter(p => p.id !== id);
-
-  localStorage.setItem("productos", JSON.stringify(productos));
-  mostrarAlerta("Producto eliminado", "danger");
-
-  setTimeout(() => location.reload(), 1000);
-}
-
-function editarProducto(id) {
-  const productos = JSON.parse(localStorage.getItem("productos"));
-  const producto = productos.find(p => p.id === id);
-
-  document.getElementById("producto-id").value = producto.id;
-  document.getElementById("nombre").value = producto.nombre;
-  document.getElementById("precio").value = producto.precio;
-  document.getElementById("categoria").value = producto.categoria;
-  document.getElementById("descripcion").value = producto.descripcion;
-  document.getElementById("imagen").value = producto.imagen;
-
-  
-  const panel = document.getElementById("admin-panel");
-  if (panel) {
-    panel.style.display = "block";
-  }
-
-  window.scrollTo({ top: panel.offsetTop, behavior: "smooth" });
-}
-
-function cambiarCantidad(id, cambio) {
-  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-  carrito = carrito.map(item => {
-    if (item.id === id) {
-      item.cantidad += cambio;
-      if (item.cantidad < 1) item.cantidad = 1;
-    }
-    return item;
-  });
-
-  localStorage.setItem("carrito", JSON.stringify(carrito));
-  location.reload();
-}
-
-function eliminarDelCarrito(id) {
-  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-  carrito = carrito.filter(p => p.id !== id);
-
-  localStorage.setItem("carrito", JSON.stringify(carrito));
-
-  location.reload();
-}
-
-function finalizarCompra() {
-  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-  if (carrito.length === 0) {
-    alert("Tu carrito está vacío 🛒");
-    return;
-  }
-
-  alert("✅ Compra realizada con éxito. ¡Gracias por tu compra!");
-
-  localStorage.removeItem("carrito");
-
-  location.reload();
-}
 /* ================= ALERTAS ================= */
 
 function mostrarAlerta(msg, tipo) {
@@ -459,9 +580,12 @@ function mostrarAlerta(msg, tipo) {
   }
 }
 
-/* ================= TOGGLE FORM ================= */
+/* ================= TOGGLE FORM ADMIN ================= */
+
 function toggleFormulario() {
   const panel = document.getElementById("admin-panel");
+
+  if (!panel) return;
 
   if (panel.style.display === "none" || panel.style.display === "") {
     panel.style.display = "block";
@@ -473,57 +597,98 @@ function toggleFormulario() {
 /* ================= VALIDACIONES ================= */
 
 function validateNombre(value) {
-  var errorEl = document.getElementById('error-nombre');
-  var inputEl = document.getElementById('nombre');
-  if (value === '' || value.length < 3) {
-    showError(inputEl, errorEl, 'Nombre inválido');
+  const errorEl = document.getElementById("error-nombre");
+  const inputEl = document.getElementById("nombre");
+
+  if (value === "" || value.length < 3) {
+    showError(inputEl, errorEl, "Nombre inválido");
     return false;
   }
+
   return true;
 }
 
 function validateEmail(value) {
-  var errorEl = document.getElementById('error-email');
-  var inputEl = document.getElementById('email');
-  var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const errorEl = document.getElementById("error-email");
+  const inputEl = document.getElementById("email");
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   if (!regex.test(value)) {
-    showError(inputEl, errorEl, 'Correo inválido');
+    showError(inputEl, errorEl, "Correo inválido");
     return false;
   }
+
   return true;
 }
 
 function validateTelefono(value) {
-  var errorEl = document.getElementById('error-telefono');
-  var inputEl = document.getElementById('telefono');
-  var digits = value.replace(/\D/g, '');
+  const errorEl = document.getElementById("error-telefono");
+  const inputEl = document.getElementById("telefono");
+  const digits = value.replace(/\D/g, "");
+
   if (digits.length < 10) {
-    showError(inputEl, errorEl, 'Teléfono inválido');
+    showError(inputEl, errorEl, "Teléfono inválido");
     return false;
   }
+
   return true;
 }
 
 function validateMensaje(value) {
-  var errorEl = document.getElementById('error-mensaje');
-  var inputEl = document.getElementById('mensaje');
+  const errorEl = document.getElementById("error-mensaje");
+  const inputEl = document.getElementById("mensaje");
+
   if (value.length < 10) {
-    showError(inputEl, errorEl, 'Mensaje muy corto');
+    showError(inputEl, errorEl, "Mensaje muy corto");
     return false;
   }
+
   return true;
 }
 
 /* ================= MANEJO DE ERRORES ================= */
 
 function showError(inputEl, errorEl, message) {
-  if (inputEl) inputEl.classList.add('input-error');
+  if (inputEl) inputEl.classList.add("input-error");
   if (errorEl) errorEl.textContent = message;
 }
 
 function clearErrors() {
-  var errors = document.querySelectorAll('.error-msg');
-  var inputs = document.querySelectorAll('input, textarea');
-  errors.forEach(e => e.textContent = '');
-  inputs.forEach(i => i.classList.remove('input-error'));
+  const errors = document.querySelectorAll(".error-msg");
+  const inputs = document.querySelectorAll("input, textarea");
+
+  errors.forEach(e => e.textContent = "");
+  inputs.forEach(i => i.classList.remove("input-error"));
+}
+
+function actualizarMenuSesion() {
+  const nav = document.getElementById("nav");
+
+  if (!nav) return;
+
+  const token = obtenerToken();
+  const correo = obtenerCorreo();
+
+  const loginLink = nav.querySelector('a[href="login.html"]');
+
+  if (token && loginLink) {
+    loginLink.textContent = "Cerrar sesión";
+    loginLink.href = "#";
+    loginLink.onclick = function (e) {
+      e.preventDefault();
+      cerrarSesion();
+    };
+  }
+
+  if (token && correo) {
+    const usuarioSpan = document.createElement("span");
+    usuarioSpan.classList.add("usuario-nav");
+    usuarioSpan.textContent = correo;
+
+    const yaExisteUsuario = nav.querySelector(".usuario-nav");
+
+    if (!yaExisteUsuario) {
+      nav.insertBefore(usuarioSpan, loginLink);
+    }
+  }
 }
